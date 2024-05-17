@@ -41,6 +41,7 @@ function searchClient(){
             <thead>
             <tr >
                 <th >Id</th>
+                
                 <th >Nombre</th>
                 <th >...</th>
             </tr>
