@@ -32,8 +32,9 @@ public class ClienteController {
                         .nombre(cliente.getNombre())
                         .correo(cliente.getCorreo())
                         .telefono(cliente.getTelefono())
-                        .proveedorByIdProveedor(cliente.getProveedorByIdProveedor())
-                        .facturasById(cliente.getFacturasById())
+                        .idProveedor(cliente.getIdProveedor())
+                       // .proveedorByIdProveedor(cliente.getProveedorByIdProveedor())
+                       // .facturasById(cliente.getFacturasById())
                         .build())
                 .build(),HttpStatus.OK);
     }

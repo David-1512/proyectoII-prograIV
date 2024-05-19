@@ -27,12 +27,18 @@ public class LineaServicioEntity implements Serializable {
     @Column(name = "id_linea")
     private String idLinea;
 
-    @ManyToOne
+    @Column(name = "cod_producto")
+    private String codProducto;
+
+    @Column(name = "num_factura")
+    private String numFactura;
+
+    /*@ManyToOne
     @JoinColumn(name = "cod_producto", referencedColumnName = "cod", nullable = false)
     private ProductoEntity productoByCodProducto;
 
     @ManyToOne
     @JoinColumn(name = "num_factura", referencedColumnName = "num_factura", nullable = false)
-    private FacturasEntity facturasByNumFactura;
+    private FacturasEntity facturasByNumFactura;*/
 
 }

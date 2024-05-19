@@ -18,5 +18,5 @@ public class HaciendaDto implements Serializable {
 
     private String nif;
     private String actEconomica;
-    private Collection<ProveedorEntity> proveedorsByNif;
+    //private Collection<ProveedorEntity> proveedorsByNif;
 }

@@ -34,16 +34,19 @@ public class ProveedorEntity implements Serializable {
     @Column(name = "estado")
     private String estado;
 
-    @OneToMany(mappedBy = "proveedorByIdProveedor")
-    private Collection<ClienteEntity> clientesById;
+    @Column(name = "nif")
+    private String haciendaNif;
 
-    @OneToMany(mappedBy = "proveedorByIdProveedor")
-    private Collection<FacturasEntity> facturasById;
+    //@OneToMany(mappedBy = "proveedorByIdProveedor")
+    //private Collection<ClienteEntity> clientesById;
 
-    @OneToMany(mappedBy = "proveedorByIdProveedor")
-    private Collection<ProductoEntity> productosById;
+    //@OneToMany(mappedBy = "proveedorByIdProveedor")
+   // private Collection<FacturasEntity> facturasById;
 
-    @ManyToOne
-    @JoinColumn(name = "nif", referencedColumnName = "nif", nullable = false)
-    private HaciendaEntity haciendaByNif;
+    //@OneToMany(mappedBy = "proveedorByIdProveedor")
+    //private Collection<ProductoEntity> productosById;
+
+    //@ManyToOne
+    //@JoinColumn(name = "nif", referencedColumnName = "nif", nullable = false)
+    //private HaciendaEntity haciendaByNif;
 }

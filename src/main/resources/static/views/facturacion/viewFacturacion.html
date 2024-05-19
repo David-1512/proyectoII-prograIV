@@ -5,10 +5,13 @@
     <title>Facturacion</title>
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/factura.css">
+    <script src="/js/inicio/menu.js"></script>
+    <script src="/js/facturacion/facturacion.js"></script>
 </head>
 <body>
 <header id="menu"></header>
 <div class="container-box" id="contenedorPrincipal">
+    <div id="contenido">
     <div class="subtitulo">
         <h2>Facturación</h2>
     </div>
@@ -28,7 +31,7 @@
             <label for="nombreCliente" class="col-form-label col-auto">Cliente:</label>
             <div class="col-auto">
                 <input type="text"  id="nombreCliente" value="No seleccionado" readonly>
-                <input id="buscarCliente" class="btn btn-primary" type="button" value=">Buscar">
+                <input id="buscarCliente" class="btn btn-primary" type="button" value="Buscar">
             </div>
         </div>
     </form>
@@ -70,9 +73,8 @@
         </div>
     </div>
     <input id="guardarFactura" class="btn btn-primary" type="button" value="Guardar">
+    </div>
 </div>
 <footer class = "bg-dark text-center text-white fixed-bottom" id="piePagina"></footer>
-<script src="/js/inicio/menu.js"></script>
-<script src="/js/facturacion/facturacion.js"></script>
 </body>
 </html>

@@ -25,9 +25,11 @@ public class FacturaImplement implements IFacturaService {
                 .numFactura(facturaDto.getNumFactura())
                 .fechEmision(facturaDto.getFechEmision())
                 .total(facturaDto.getTotal())
-                .clienteByIdCliente(facturaDto.getClienteByIdCliente())
-                .proveedorByIdProveedor(facturaDto.getProveedorByIdProveedor())
-                .lineaServiciosByNumFactura(facturaDto.getLineaServiciosByNumFactura())
+                .idProveedor(facturaDto.getIdProveedor())
+                .idCliente(facturaDto.getIdCliente())
+                //.clienteByIdCliente(facturaDto.getClienteByIdCliente())
+               // .proveedorByIdProveedor(facturaDto.getProveedorByIdProveedor())
+                //.lineaServiciosByNumFactura(facturaDto.getLineaServiciosByNumFactura())
                 .build();
         return facturaDao.save(factura);
     }
@@ -55,7 +57,7 @@ public class FacturaImplement implements IFacturaService {
     public List<FacturasEntity> findAllByIdProveedor(String id) {
         List<FacturasEntity> facturasPorProveedor = new ArrayList<>();
         for (FacturasEntity factura : facturaDao.findAll()) {
-            if (factura.getProveedorByIdProveedor().getId().equals(id)) {
+            if (factura.getIdProveedor().equals(id)) {
                 facturasPorProveedor.add(factura);
             }
         }

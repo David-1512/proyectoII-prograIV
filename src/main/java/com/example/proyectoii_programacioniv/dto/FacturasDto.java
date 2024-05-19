@@ -19,7 +19,9 @@ public class FacturasDto implements Serializable {
     private String numFactura;
     private Date fechEmision;
     private Double total;
-    private ClienteEntity clienteByIdCliente;
-    private ProveedorEntity proveedorByIdProveedor;
-    private Collection<LineaServicioEntity> lineaServiciosByNumFactura;
+    private String idCliente;
+    private String idProveedor;
+  //  private ClienteEntity clienteByIdCliente;
+   // private ProveedorEntity proveedorByIdProveedor;
+   // private Collection<LineaServicioEntity> lineaServiciosByNumFactura;
 }

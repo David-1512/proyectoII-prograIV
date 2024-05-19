@@ -27,8 +27,10 @@ public class LineaServicioImplement implements ILineaServicioService {
                     .cantidad(lineaServicioDto.getCod())
                     .subtotal(lineaServicioDto.getSubtotal())
                     .idLinea(lineaServicioDto.getIdLinea())
-                    .productoByCodProducto(lineaServicioDto.getProductoByCodProducto())
-                    .facturasByNumFactura(lineaServicioDto.getFacturasByNumFactura())
+                    .codProducto(lineaServicioDto.getCodProducto())
+                    .numFactura(lineaServicioDto.getNumFactura())
+                    //.productoByCodProducto(lineaServicioDto.getProductoByCodProducto())
+                    //.facturasByNumFactura(lineaServicioDto.getFacturasByNumFactura())
                     .build();
             lineasServicio.add(lineaServicio);
         }

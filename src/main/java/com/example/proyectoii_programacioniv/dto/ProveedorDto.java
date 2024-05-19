@@ -22,8 +22,5 @@ public class ProveedorDto implements Serializable {
     private String telefono;
     private String contrasena;
     private String estado;
-    private Collection<ClienteEntity> clientesById;
-    private Collection<FacturasEntity> facturasById;
-    private Collection<ProductoEntity> productosById;
-    private HaciendaEntity haciendaByNif;
+    private String haciendaNif;
 }

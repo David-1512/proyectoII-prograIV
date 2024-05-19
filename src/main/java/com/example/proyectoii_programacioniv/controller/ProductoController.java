@@ -30,8 +30,9 @@ public class ProductoController {
                         .cod(producto.getCod())
                         .nombre(producto.getNombre())
                         .precio(producto.getPrecio())
-                        .lineaServiciosByCod(producto.getLineaServiciosByCod())
-                        .proveedorByIdProveedor(producto.getProveedorByIdProveedor())
+                        .idProveedor(producto.getIdProveedor())
+                       // .lineaServiciosByCod(producto.getLineaServiciosByCod())
+                        //.proveedorByIdProveedor(producto.getProveedorByIdProveedor())
                         .build())
                 .build(), HttpStatus.OK);
     }

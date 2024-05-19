@@ -26,7 +26,13 @@ public class FacturasEntity implements Serializable {
     @Column(name = "total")
     private Double total;
 
-    @ManyToOne
+    @Column(name = "id_cliente")
+    private String idCliente;
+
+    @Column(name = "id_proveedor")
+    private String idProveedor;
+
+   /* @ManyToOne
     @JoinColumn(name = "id_cliente", referencedColumnName = "id", nullable = false)
     private ClienteEntity clienteByIdCliente;
 
@@ -35,5 +41,5 @@ public class FacturasEntity implements Serializable {
     private ProveedorEntity proveedorByIdProveedor;
 
     @OneToMany(mappedBy = "facturasByNumFactura")
-    private Collection<LineaServicioEntity> lineaServiciosByNumFactura;
+    private Collection<LineaServicioEntity> lineaServiciosByNumFactura;*/
 }

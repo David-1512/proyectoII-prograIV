@@ -20,7 +20,8 @@ public class ClienteDto implements Serializable {
     private String nombre;
     private String correo;
     private String telefono;
-    private ProveedorEntity proveedorByIdProveedor;
-    private Collection<FacturasEntity> facturasById;
+    private String idProveedor;
+    //private ProveedorEntity proveedorByIdProveedor;
+    //private Collection<FacturasEntity> facturasById;
 
 }

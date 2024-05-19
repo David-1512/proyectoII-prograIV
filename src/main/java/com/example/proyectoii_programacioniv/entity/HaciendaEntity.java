@@ -22,6 +22,6 @@ public class HaciendaEntity implements Serializable {
     @Column(name = "act_economica")
     private String actEconomica;
 
-    @OneToMany(mappedBy = "haciendaByNif")
-    private Collection<ProveedorEntity> proveedorsByNif;
+   // @OneToMany(mappedBy = "haciendaByNif")
+    //private Collection<ProveedorEntity> proveedorsByNif;
 }

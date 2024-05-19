@@ -25,10 +25,13 @@ public class ProductoEntity implements Serializable {
     @Column(name = "precio")
     private Double precio;
 
-    @OneToMany(mappedBy = "productoByCodProducto")
+    @Column(name = "id_proveedor")
+    private String idProveedor;
+
+   /* @OneToMany(mappedBy = "productoByCodProducto")
     private Collection<LineaServicioEntity> lineaServiciosByCod;
 
     @ManyToOne
     @JoinColumn(name = "id_proveedor", referencedColumnName = "id", nullable = false)
-    private ProveedorEntity proveedorByIdProveedor;
+    private ProveedorEntity proveedorByIdProveedor;*/
 }

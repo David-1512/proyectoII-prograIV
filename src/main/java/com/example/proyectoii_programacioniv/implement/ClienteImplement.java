@@ -29,7 +29,7 @@ public class ClienteImplement implements IClienteService {
     public List<ClienteEntity> findAllByIdProveedor(String id) {
         List<ClienteEntity> clientesPorProveedor = new ArrayList<>();
         for (ClienteEntity cliente : clienteDao.findAll()) {
-            if (cliente.getProveedorByIdProveedor().getId().equals(id)) {
+            if (cliente.getIdProveedor().equals(id)) {
                 clientesPorProveedor.add(cliente);
             }
         }

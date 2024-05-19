@@ -29,10 +29,13 @@ public class ClienteEntity implements Serializable {
     @Column(name = "telefono")
     private String telefono;
 
-    @ManyToOne
-    @JoinColumn(name = "id_proveedor", referencedColumnName = "id")
-    private ProveedorEntity proveedorByIdProveedor;
+    @Column(name = "id_proveedor")
+    private String idProveedor;
 
-    @OneToMany(mappedBy = "clienteByIdCliente")
-    private Collection<FacturasEntity> facturasById;
+   //@ManyToOne
+   // @JoinColumn(name = "id_proveedor", referencedColumnName = "id")
+    //private ProveedorEntity proveedorByIdProveedor;
+
+   // @OneToMany(mappedBy = "clienteByIdCliente")
+    //private Collection<FacturasEntity> facturasById;
 }
