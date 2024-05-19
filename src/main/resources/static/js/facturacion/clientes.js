@@ -1,4 +1,4 @@
-var state ={
+var stateClientes ={
     list: new Array(),
     item : {id:"", nombre:""},
     id : "",
@@ -8,23 +8,23 @@ var state ={
 document.addEventListener("DOMContentLoaded",loaded);
 
 async function loaded(event) {
-    loadProveedor();
+    loadProveedorClientes();
     try {
         await render_menu();
     } catch (error) {
         return;
     }
     document.getElementById("salirCliente").addEventListener("click", returnMenu);
-    fetchAndList();
+    fetchAndListClientes();
 }
-function loadProveedor() {
+function loadProveedorClientes() {
     const storedState = localStorage.getItem('proveedor');
     if (storedState) {
-        state.id = JSON.parse(storedState);
+        stateClientes.id = JSON.parse(storedState);
     }
 }
-function fetchAndList() {
-    const request = new Request(backend +`/clientes/${state.id}`, { method: 'GET', headers: {} });
+function fetchAndListClientes() {
+    const request = new Request(backend +`/clientes/${stateClientes.id}`, { method: 'GET', headers: {} });
     (async ()=>{
         const response = await fetch(request);
         if (!response.ok) {
@@ -32,18 +32,18 @@ function fetchAndList() {
             return;
         }
         const responseData = await response.json();
-        state.list = responseData.object;
-       render_list();
+        stateClientes.list = responseData.object;
+       render_listClientes();
     })();
 }
 
-function render_list(){
+function render_listClientes(){
     var listado=document.getElementById("listClientes");
     listado.innerHTML="";
-    state.list.forEach( item=>render_list_item(listado,item));
+    stateClientes.list.forEach( item=>render_list_itemClientes(listado,item));
 }
 
-function render_list_item(listado,item){
+function render_list_itemClientes(listado,item){
     var tr =document.createElement("tr");
     tr.innerHTML=`<td>${item.id}</td>
 					<td>${item.nombre}</td>
@@ -65,9 +65,9 @@ function addCliente(id) {
         const responseData = await response.json();
         if (responseData.object) {
             const cliente = responseData.object;
-            state.cliente.nombre = cliente.nombre;
-            state.cliente.id =cliente.id;
-            localStorage.setItem('cliente', JSON.stringify(state.cliente));
+            stateClientes.cliente.nombre = cliente.nombre;
+            stateClientes.cliente.id =cliente.id;
+            localStorage.setItem('cliente', JSON.stringify(stateClientes.cliente));
             returnMenu();
         } else {
             errorMessage("Respuesta inválida del servidor");

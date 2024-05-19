@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1")
 public class ProductoController {
@@ -35,5 +37,14 @@ public class ProductoController {
                         //.proveedorByIdProveedor(producto.getProveedorByIdProveedor())
                         .build())
                 .build(), HttpStatus.OK);
+    }
+
+    @GetMapping("/productos/{id}")
+    public ResponseEntity<?> showAllByIdProveedor(@PathVariable String id){
+        List<ProductoEntity> productosPorProveedor = productoService.findAllByIdProveedor(id);
+        return new ResponseEntity<>(MensajeResponse.builder()
+                .mensaje("Consulta de clientes exitosa")
+                .object(productosPorProveedor)
+                .build(),HttpStatus.OK);
     }
 }

@@ -2,7 +2,7 @@ var factura ={
     proveedor: {nombre:"Verrati Salazar",id:"86952"},
     productos: new Array(),
     cliente:{nombre:"",id:""},
-    productoSelect:{detalle:"",cod:"",cant:0}
+    producto:{cod:"",nombre:""}
 }
 
 
@@ -21,28 +21,32 @@ async function loaded(event) {
     document.getElementById("agregarProducto").addEventListener("click", addProduct);
     document.getElementById("guardarFactura").addEventListener("click", addBill);
 }
-function saveState() {
-    localStorage.setItem('factura', JSON.stringify(factura));
-}
 
 function loadState() {
+    document.getElementById("nombreProveedor").value = factura.proveedor.nombre;
     const cliente = localStorage.getItem('cliente');
     if (cliente && cliente !== "null" && cliente !== "") {
         factura.cliente = JSON.parse(cliente);
         document.getElementById("nombreCliente").value = factura.cliente.nombre;
     }
+
+    const producto = localStorage.getItem('producto');
+    if (producto && producto !== "null" && producto !== "") {
+        factura.producto = JSON.parse(producto);
+        document.getElementById("detalleProducto").value = factura.producto.nombre;
+    }
+
 }
 
-//Buscar cliente
 function searchClient(){
-   // saveState();
     localStorage.setItem('proveedor', JSON.stringify(factura.proveedor.id));
     document.location = "/views/facturacion/viewClientes.html";
 }
 
 function searchProduct(){
+    localStorage.setItem('proveedor', JSON.stringify(factura.proveedor.id));
+    document.location = "/views/facturacion/viewProductos.html";
 }
-
 
 function addProduct(){
 }

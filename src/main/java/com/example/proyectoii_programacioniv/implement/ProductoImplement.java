@@ -10,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class ProductoImplement implements IProductoService {
 
@@ -22,4 +25,19 @@ public class ProductoImplement implements IProductoService {
     public ProductoEntity findById(String id) {
         return productoDao.findById(id).orElse(null);
     }
+
+    @Transactional(readOnly = true)
+    @Override
+    public List<ProductoEntity> findAllByIdProveedor(String id) {
+        List<ProductoEntity> productosPorProveedor = new ArrayList<>();
+        for (ProductoEntity producto : productoDao.findAll()) {
+            if (producto.getIdProveedor().equals(id)) {
+                productosPorProveedor.add(producto);
+            }
+        }
+        return productosPorProveedor;
+    }
+
+
+
 }
