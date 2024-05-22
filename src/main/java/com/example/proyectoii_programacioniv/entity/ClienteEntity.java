@@ -14,28 +14,21 @@ import java.util.Objects;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@Table(name = "cliente", schema = "proyecto_prograiv", catalog = "")
+@Table(name = "cliente", schema = "proyecto2_progra4", catalog = "")
 public class ClienteEntity implements Serializable {
     @Id
-    @Column(name = "id")
+    @Column(name = "id_cliente")
     private String id;
 
     @Column(name = "nombre")
     private String nombre;
 
-    @Column(name = "correo")
+    @Column(name = "correo_electronico")
     private String correo;
 
     @Column(name = "telefono")
     private String telefono;
 
-    @Column(name = "id_proveedor")
-    private String idProveedor;
-
-   //@ManyToOne
-   // @JoinColumn(name = "id_proveedor", referencedColumnName = "id")
-    //private ProveedorEntity proveedorByIdProveedor;
-
-   // @OneToMany(mappedBy = "clienteByIdCliente")
-    //private Collection<FacturasEntity> facturasById;
+    @Column(name = "tipo_identificacion")
+    private String tipoId;
 }

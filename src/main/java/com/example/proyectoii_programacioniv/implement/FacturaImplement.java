@@ -23,13 +23,12 @@ public class FacturaImplement implements IFacturaService {
     public FacturasEntity save(FacturasDto facturaDto) {
         FacturasEntity factura = FacturasEntity.builder()
                 .numFactura(facturaDto.getNumFactura())
+                .consecutivo(facturaDto.getConsecutivo())
                 .fechEmision(facturaDto.getFechEmision())
                 .total(facturaDto.getTotal())
                 .idProveedor(facturaDto.getIdProveedor())
                 .idCliente(facturaDto.getIdCliente())
-                //.clienteByIdCliente(facturaDto.getClienteByIdCliente())
-               // .proveedorByIdProveedor(facturaDto.getProveedorByIdProveedor())
-                //.lineaServiciosByNumFactura(facturaDto.getLineaServiciosByNumFactura())
+                .medioPago(facturaDto.getMedioPago())
                 .build();
         return facturaDao.save(factura);
     }

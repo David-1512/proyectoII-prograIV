@@ -1,8 +1,7 @@
 package com.example.proyectoii_programacioniv.dto;
 
-import com.example.proyectoii_programacioniv.entity.FacturasEntity;
-import com.example.proyectoii_programacioniv.entity.ProductoEntity;
 import jakarta.persistence.Column;
+import jakarta.persistence.Id;
 import lombok.Builder;
 import lombok.Data;
 import lombok.ToString;
@@ -13,13 +12,11 @@ import java.io.Serializable;
 @ToString
 @Builder
 public class LineaServicioDto implements Serializable {
-
-    private int cod;
-    private int cantidad;
-    private Double subtotal;
+    private int id;
     private String idLinea;
+    private int cantidad;
+    private double impuesto;
+    private Double subtotal;
     private String codProducto;
     private String numFactura;
-    //private ProductoEntity productoByCodProducto;
-    //private FacturasEntity facturasByNumFactura;
 }

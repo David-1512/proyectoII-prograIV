@@ -2,7 +2,7 @@ var stateProductos ={
     list: new Array(),
     item : {cod:"", nombre:"",precio:0.0},
     id : "",
-    producto:{cod:"",nombre:""}
+    producto:{cod:"",nombre:"",precio:0.0}
 }
 
 document.addEventListener("DOMContentLoaded",loaded);
@@ -68,6 +68,7 @@ function addProducto(cod) {
             const producto = responseData.object;
             stateProductos.producto.cod = producto.cod;
             stateProductos.producto.nombre = producto.nombre;
+            stateProductos.producto.precio = producto.precio;
             localStorage.setItem('producto', JSON.stringify(stateProductos.producto));
             returnMenu();
         } else {

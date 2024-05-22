@@ -74,9 +74,6 @@ function addCliente(id) {
         }
     })();
 }
-
-
-
 function returnMenu(){
     document.location="/views/facturacion/viewFacturacion.html";
 }

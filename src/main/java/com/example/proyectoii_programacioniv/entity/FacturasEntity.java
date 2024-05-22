@@ -14,13 +14,16 @@ import java.util.Objects;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@Table(name = "facturas", schema = "proyecto_prograiv", catalog = "")
+@Table(name = "factura", schema = "proyecto2_progra4", catalog = "")
 public class FacturasEntity implements Serializable {
     @Id
-    @Column(name = "num_factura")
+    @Column(name = "id_factura")
     private String numFactura;
 
-    @Column(name = "fech_emision")
+    @Column(name = "consecutivo")
+    private int consecutivo;
+
+    @Column(name = "fecha")
     private Date fechEmision;
 
     @Column(name = "total")
@@ -32,14 +35,6 @@ public class FacturasEntity implements Serializable {
     @Column(name = "id_proveedor")
     private String idProveedor;
 
-   /* @ManyToOne
-    @JoinColumn(name = "id_cliente", referencedColumnName = "id", nullable = false)
-    private ClienteEntity clienteByIdCliente;
-
-    @ManyToOne
-    @JoinColumn(name = "id_proveedor", referencedColumnName = "id", nullable = false)
-    private ProveedorEntity proveedorByIdProveedor;
-
-    @OneToMany(mappedBy = "facturasByNumFactura")
-    private Collection<LineaServicioEntity> lineaServiciosByNumFactura;*/
+    @Column(name = "medio_pago")
+    private String medioPago;
 }

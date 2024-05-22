@@ -30,8 +30,9 @@ public class ProveedorController {
                         .telefono(proveedor.getTelefono())
                         .contrasena(proveedor.getContrasena())
                         .estado(proveedor.getEstado())
-                                .haciendaNif(proveedor.getHaciendaNif())
-                        //.haciendaByNif(proveedor.getHaciendaByNif())
+                        .ubicacion(proveedor.getUbicacion())
+                        .nomComercial(proveedor.getNomComercial())
+                        .tipoId(proveedor.getTipoId())
                         .build())
                 .build(), HttpStatus.OK);
     }

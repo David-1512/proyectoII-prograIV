@@ -13,40 +13,33 @@ import java.util.Objects;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@Table(name = "proveedor", schema = "proyecto_prograiv", catalog = "")
+@Table(name = "proveedor", schema = "proyecto2_progra4", catalog = "")
 public class ProveedorEntity implements Serializable {
     @Id
-    @Column(name = "id")
+    @Column(name = "id_proveedor")
     private String id;
 
     @Column(name = "nombre")
     private String nombre;
 
-    @Column(name = "correo")
+    @Column(name = "correo_electronico")
     private String correo;
 
     @Column(name = "telefono")
     private String telefono;
 
-    @Column(name = "contrasena")
+    @Column(name = "clave")
     private String contrasena;
 
     @Column(name = "estado")
     private String estado;
 
-    @Column(name = "nif")
-    private String haciendaNif;
+    @Column(name = "ubicacion")
+    private String ubicacion;
 
-    //@OneToMany(mappedBy = "proveedorByIdProveedor")
-    //private Collection<ClienteEntity> clientesById;
+    @Column(name = "nombre_comercial")
+    private String nomComercial;
 
-    //@OneToMany(mappedBy = "proveedorByIdProveedor")
-   // private Collection<FacturasEntity> facturasById;
-
-    //@OneToMany(mappedBy = "proveedorByIdProveedor")
-    //private Collection<ProductoEntity> productosById;
-
-    //@ManyToOne
-    //@JoinColumn(name = "nif", referencedColumnName = "nif", nullable = false)
-    //private HaciendaEntity haciendaByNif;
+    @Column(name = "tipo_identificacion")
+    private String tipoId;
 }

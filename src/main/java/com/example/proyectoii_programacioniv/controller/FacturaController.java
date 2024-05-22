@@ -25,13 +25,12 @@ public class FacturaController {
             facturaSave = facturaService.save(facturaDto);
             facturaDto = FacturasDto.builder()
                     .numFactura(facturaSave.getNumFactura())
+                    .consecutivo(facturaSave.getConsecutivo())
                     .fechEmision(facturaSave.getFechEmision())
                     .total(facturaSave.getTotal())
                     .idProveedor(facturaSave.getIdProveedor())
                     .idCliente(facturaSave.getIdCliente())
-                    //.clienteByIdCliente(facturaSave.getClienteByIdCliente())
-                    //.proveedorByIdProveedor(facturaSave.getProveedorByIdProveedor())
-                    //.lineaServiciosByNumFactura(facturaSave.getLineaServiciosByNumFactura())
+                    .medioPago(facturaDto.getMedioPago())
                     .build();
             return new ResponseEntity<>(MensajeResponse.builder()
                     .mensaje("Factura Guardada correctamente")
@@ -70,4 +69,7 @@ public class FacturaController {
                 .object(facturasPorProveedor)
                 .build(),HttpStatus.OK);
     }
+
+
+
 }
