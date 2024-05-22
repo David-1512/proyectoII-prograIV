@@ -17,11 +17,10 @@ import java.util.Collection;
 @Builder
 public class FacturasDto implements Serializable {
     private String numFactura;
+    private int consecutivo;
     private Date fechEmision;
     private Double total;
     private String idCliente;
     private String idProveedor;
-  //  private ClienteEntity clienteByIdCliente;
-   // private ProveedorEntity proveedorByIdProveedor;
-   // private Collection<LineaServicioEntity> lineaServiciosByNumFactura;
+    private String medioPago;
 }

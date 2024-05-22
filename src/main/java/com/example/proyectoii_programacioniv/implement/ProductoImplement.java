@@ -1,10 +1,7 @@
 package com.example.proyectoii_programacioniv.implement;
 
-import com.example.proyectoii_programacioniv.dao.ClienteDao;
-import com.example.proyectoii_programacioniv.dao.ProductoDao;
-import com.example.proyectoii_programacioniv.entity.ClienteEntity;
-import com.example.proyectoii_programacioniv.entity.ProductoEntity;
-import com.example.proyectoii_programacioniv.service.IFacturaService;
+import com.example.proyectoii_programacioniv.dao.ProductoProveedorDao;
+import com.example.proyectoii_programacioniv.entity.ProductoProveedorEntity;
 import com.example.proyectoii_programacioniv.service.IProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,19 +15,19 @@ public class ProductoImplement implements IProductoService {
 
 
     @Autowired
-    private ProductoDao productoDao;
+    private ProductoProveedorDao productoDao;
 
     @Transactional(readOnly = true)
     @Override
-    public ProductoEntity findById(String id) {
+    public ProductoProveedorEntity findById(String id) {
         return productoDao.findById(id).orElse(null);
     }
 
     @Transactional(readOnly = true)
     @Override
-    public List<ProductoEntity> findAllByIdProveedor(String id) {
-        List<ProductoEntity> productosPorProveedor = new ArrayList<>();
-        for (ProductoEntity producto : productoDao.findAll()) {
+    public List<ProductoProveedorEntity> findAllByIdProveedor(String id) {
+        List<ProductoProveedorEntity> productosPorProveedor = new ArrayList<>();
+        for (ProductoProveedorEntity producto : productoDao.findAll()) {
             if (producto.getIdProveedor().equals(id)) {
                 productosPorProveedor.add(producto);
             }

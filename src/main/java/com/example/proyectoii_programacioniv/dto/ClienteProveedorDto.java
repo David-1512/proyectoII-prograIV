@@ -9,12 +9,8 @@ import java.io.Serializable;
 @Data
 @ToString
 @Builder
-public class ClienteDto implements Serializable {
+public class ClienteProveedorDto implements Serializable {
     private String id;
-    private String nombre;
-    private String correo;
-    private String telefono;
-    private String tipoId;
-
-
+    private String idProveedor;
+    private String idCliente;
 }

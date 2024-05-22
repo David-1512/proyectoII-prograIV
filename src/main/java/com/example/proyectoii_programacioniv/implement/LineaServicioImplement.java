@@ -23,14 +23,14 @@ public class LineaServicioImplement implements ILineaServicioService {
         List<LineaServicioEntity> lineasServicio = new ArrayList<>();
         for (LineaServicioDto lineaServicioDto : lineasServicioDto) {
             LineaServicioEntity lineaServicio = LineaServicioEntity.builder()
-                    .cod(lineaServicioDto.getCod())
-                    .cantidad(lineaServicioDto.getCod())
+                    .id(lineaServicioDto.getId())
+                    .idLinea(lineaServicioDto.getIdLinea())
+                    .cantidad(lineaServicioDto.getCantidad())
                     .subtotal(lineaServicioDto.getSubtotal())
                     .idLinea(lineaServicioDto.getIdLinea())
                     .codProducto(lineaServicioDto.getCodProducto())
                     .numFactura(lineaServicioDto.getNumFactura())
-                    //.productoByCodProducto(lineaServicioDto.getProductoByCodProducto())
-                    //.facturasByNumFactura(lineaServicioDto.getFacturasByNumFactura())
+                    .impuesto(lineaServicioDto.getImpuesto())
                     .build();
             lineasServicio.add(lineaServicio);
         }
