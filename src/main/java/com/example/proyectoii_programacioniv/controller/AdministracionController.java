@@ -53,10 +53,6 @@ public class AdministracionController {
 
     @GetMapping("/{id}")
     public ProveedorDto read(@PathVariable String id) {
-        for(int i =0;i<20 ;i++){
-            System.out.println(i);
-        }
-        System.out.println(id);
         try{
             return new ProveedorDto().cloneSinContrasenia(proveedorService.findById(id));
         }

@@ -43,6 +43,8 @@ public class ProveedorEntity implements Serializable {
     @Column(name = "tipo_identificacion")
     private String tipoId;
 
+
+
     public ProveedorEntity(ProveedorDto proveedorDto) {
         this.id = proveedorDto.getId();
         this.nombre = proveedorDto.getNombre();

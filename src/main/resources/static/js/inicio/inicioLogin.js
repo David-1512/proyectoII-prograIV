@@ -2,7 +2,7 @@ var api_login=backend+'/login';
 
 var registro ={
     logged: false,
-    proveedor : {id:"",nombre:"", password:"", tipoId:"",rol:""}
+    proveedor : {id:"",nombre:"", password:"", tipoId:"",rol:"", estado:''}
 }
 
 document.addEventListener("DOMContentLoaded",loaded);
@@ -11,9 +11,10 @@ async function loaded(event) {
     localStorage.clear();
     try{ await menu();} catch(error){return;}
     if(loginstate.logged){
-        if(loginstate.user.rol=="PRO"){
+        if(loginstate.user.rol=="PRO"&& loginstate.user.estado=='D'){
             document.location="/views/proveedor/viewDatosProveedor.html";
         }else{
+            alert("Usuario no Bienvenida");
             document.location="/views/inicio/viewBienvenida.html";
         }
 
@@ -124,7 +125,8 @@ function login(){
     (async ()=>{
         const response = await fetch(request);
         if (!response.ok) {errorMessage(response.status);return;}
-        if(loginstate.user.rol=="PRO"){
+        registro.proveedor = await response.json();
+        if(registro.proveedor.rol=="PRO"&& registro.proveedor.estado=='D'){
             document.location="/views/proveedor/viewDatosProveedor.html";
         }else{
             document.location="/views/inicio/viewBienvenida.html";
