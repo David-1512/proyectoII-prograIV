@@ -22,7 +22,6 @@ public class FacturaController {
     public ResponseEntity<?> create(@RequestBody FacturasDto facturaDto){
         FacturasEntity facturaSave = null;
         try {
-            System.out.println(facturaDto);
             facturaSave = facturaService.save(facturaDto);
             facturaDto = FacturasDto.builder()
                     .numFactura(facturaSave.getNumFactura())
@@ -31,7 +30,7 @@ public class FacturaController {
                     .total(facturaSave.getTotal())
                     .idProveedor(facturaSave.getIdProveedor())
                     .idCliente(facturaSave.getIdCliente())
-                    .medioPago(facturaDto.getMedioPago())
+                    .medioPago(facturaSave.getMedioPago())
                     .build();
             return new ResponseEntity<>(MensajeResponse.builder()
                     .mensaje("Factura Guardada correctamente")
