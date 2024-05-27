@@ -26,14 +26,17 @@ public class AdministracionController {
     private IProveedorService proveedorService;
     @GetMapping("/proveedores")
     public List<ProveedorDto> read() {
-        List<ProveedorEntity> proveedores = proveedorService.findByEstadoIn(new ArrayList<Character>(asList('A', 'I', 'D')));
-        List<ProveedorDto> proveedoresDto = new ArrayList<>();
+        try {
+            List<ProveedorEntity> proveedores = proveedorService.findByEstadoIn(new ArrayList<Character>(asList('A', 'I', 'D')));
+            List<ProveedorDto> proveedoresDto = new ArrayList<>();
 
-        for(ProveedorEntity proveedor : (List<ProveedorEntity>) proveedores){
-            proveedoresDto.add(new ProveedorDto().cloneSinContrasenia(proveedor));
+            for(ProveedorEntity proveedor : (List<ProveedorEntity>) proveedores){
+                proveedoresDto.add(new ProveedorDto().cloneSinContrasenia(proveedor));
+            }
+            return proveedoresDto;
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Solicitudes no encontradas", e);
         }
-        return proveedoresDto;
-
     }
     @GetMapping("/solicitudes")
     public List<ProveedorDto> readSolicitudes() {
