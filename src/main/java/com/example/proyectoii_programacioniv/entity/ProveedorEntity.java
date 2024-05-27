@@ -2,6 +2,7 @@ package com.example.proyectoii_programacioniv.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -32,7 +33,7 @@ public class ProveedorEntity implements Serializable {
     private String contrasena;
 
     @Column(name = "estado")
-    private String estado;
+    private char estado;
 
     @Column(name = "ubicacion")
     private String ubicacion;
@@ -42,6 +43,34 @@ public class ProveedorEntity implements Serializable {
 
     @Column(name = "tipo_identificacion")
     private String tipoId;
+
+
+
+    public ProveedorEntity(ProveedorDto proveedorDto) {
+        this.id = proveedorDto.getId();
+        this.nombre = proveedorDto.getNombre();
+        this.correo = proveedorDto.getCorreo();
+        this.telefono = proveedorDto.getTelefono();
+        this.contrasena = proveedorDto.getPassword();
+        this.estado = proveedorDto.getEstado();
+        this.ubicacion = proveedorDto.getUbicacion();
+        this.nomComercial = proveedorDto.getNomComercial();
+        this.tipoId = proveedorDto.getTipoId();
+    }
+
+    public ProveedorEntity clonePassCifrada(ProveedorDto proveedorDto) {
+        var encoder = new BCryptPasswordEncoder();
+        this.id = proveedorDto.getId();
+        this.nombre = proveedorDto.getNombre();
+        this.correo = proveedorDto.getCorreo();
+        this.telefono = proveedorDto.getTelefono();
+        this.contrasena = "{bcrypt}"+encoder.encode(proveedorDto.getPassword());
+        this.estado = proveedorDto.getEstado();
+        this.ubicacion = proveedorDto.getUbicacion();
+        this.nomComercial = proveedorDto.getNomComercial();
+        this.tipoId = proveedorDto.getTipoId();
+        return this;
+    }
 
     @Column(name = "id_actividad_comercial")
     private int idActComercial;

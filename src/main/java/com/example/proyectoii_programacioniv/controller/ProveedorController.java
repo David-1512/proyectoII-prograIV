@@ -23,18 +23,7 @@ public class ProveedorController {
        ProveedorEntity proveedor =  proveedorService.findById(id);
         return new ResponseEntity<>(MensajeResponse.builder()
                 .mensaje("Consulta de proveedor exitosa")
-                .object(ProveedorDto.builder()
-                        .id(proveedor.getId())
-                        .nombre(proveedor.getNombre())
-                        .correo(proveedor.getCorreo())
-                        .telefono(proveedor.getTelefono())
-                        .contrasena(proveedor.getContrasena())
-                        .estado(proveedor.getEstado())
-                        .ubicacion(proveedor.getUbicacion())
-                        .nomComercial(proveedor.getNomComercial())
-                        .tipoId(proveedor.getTipoId())
-                        .idActComercial(proveedor.getIdActComercial())
-                        .build())
-                .build(), HttpStatus.OK);
+                .object(new ProveedorDto().cloneSinContrasenia(proveedor))
+                        , HttpStatus.OK);
     }
 }
