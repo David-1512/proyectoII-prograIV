@@ -45,7 +45,7 @@ input[type="text"], input[type="email"], input[type="tel"] {
 }
 
 textarea {
-    height: 140px;
+    height: 100px;
     width: 100%;
 }
 

@@ -1,22 +1,23 @@
 package com.example.proyectoii_programacioniv.dto;
 
 import com.example.proyectoii_programacioniv.entity.ProveedorEntity;
-import lombok.Data;
+
+import lombok.*;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-
 import java.io.Serializable;
 
 @Data
 @ToString
 @NoArgsConstructor
-public class ProveedorDto extends User implements Serializable {
+public class ProveedorDto extends User implements Serializable{
     private String correo;
     private String telefono;
     private char estado;
     private String ubicacion;
     private String nomComercial;
     private String tipoId;
+    private int idActComercial;
 
     public ProveedorDto(String id, String nombre, String correo, String telefono, String contrasena, char estado, String ubicacion, String nomComercial, String tipoId) {
         super(id, nombre, contrasena, "PRO", estado);
@@ -37,6 +38,7 @@ public class ProveedorDto extends User implements Serializable {
         this.ubicacion = proveedorEntity.getUbicacion();
         this.nomComercial = proveedorEntity.getNomComercial();
         this.tipoId = proveedorEntity.getTipoId();
+        this.idActComercial = proveedorEntity.getIdActComercial();
         this.rol = "PRO";
     }
 
@@ -50,6 +52,7 @@ public class ProveedorDto extends User implements Serializable {
         this.ubicacion = proveedorEntity.getUbicacion();
         this.nomComercial = proveedorEntity.getNomComercial();
         this.tipoId = proveedorEntity.getTipoId();
+        this.idActComercial = proveedorEntity.getIdActComercial();
         this.rol = "PRO";
 
         return this;
@@ -65,11 +68,9 @@ public class ProveedorDto extends User implements Serializable {
         this.ubicacion = proveedorDto.getUbicacion();
         this.nomComercial = proveedorDto.getNomComercial();
         this.tipoId = proveedorDto.getTipoId();
+        this.idActComercial = proveedorDto.getIdActComercial();
         this.rol = "PRO";
 
         return this;
     }
-
 }
-
-

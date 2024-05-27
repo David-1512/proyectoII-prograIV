@@ -2,7 +2,7 @@ var backend="http://localhost:8080/api/v1";
 
 var loginstate ={
     logged: false,
-    user : {id:"",nombre:"", rol:""}
+    user : {id:"",nombre:"", rol:"", estado:''}
 }
 
 async function checkuser(){
@@ -11,6 +11,7 @@ async function checkuser(){
     if (response.ok) {
         loginstate.logged = true;
         loginstate.user = await response.json();
+        localStorage.setItem('proveedor', JSON.stringify(loginstate.user));
     }
     else {
         loginstate.logged = false;
@@ -71,7 +72,7 @@ async function render_menu() {
 
         render_piePagina();
 
-    } else if (loginstate.logged && loginstate.user.rol == "PRO") {
+    } else if (loginstate.logged && loginstate.user.rol == "PRO" && loginstate.user.estado == 'A') {
         html = `
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <div class="container-fluid">
@@ -105,7 +106,7 @@ async function render_menu() {
         `;
         document.querySelector('#menu').innerHTML = html;
         document.querySelector("#menu #inicio").addEventListener('click', e => {
-            //document.location = "/views/proveedores/viewBienvenida.html";
+            document.location = "/views/inicio/viewBienvenida.html";
         });
         document.querySelector("#menu #clientes").addEventListener('click', e => {
             //document.location = "/views/proveedores/viewClientes.html";
@@ -114,12 +115,35 @@ async function render_menu() {
             document.location = "/views/facturacion/viewFacturacion.html";
         });
         document.querySelector("#menu #productos").addEventListener('click', e => {
-            //document.location = "/views/productos/viewProductos.html";
+          //  document.location = "/views/productos/viewProductos.html";
         });
         document.querySelector("#menu #logout").addEventListener('click', logout);
 
         render_piePagina();
 
+    } else if(loginstate.logged && loginstate.user.rol == "PRO" && loginstate.user.estado != 'A'){
+        html = `
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="/">
+                        <img src="/images/log.png" alt="LogoEmpresa" height="40">
+                        <strong>Facturación S.A</strong>
+                    </a>   
+                    <div>
+                        <div class="collapse navbar-collapse">
+                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">                             
+                                <li id="logout" class="nav-item">
+                                    <a class="nav-link" href = "#">Logout</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>                 
+                </div>
+            </nav>
+        `;
+        document.querySelector('#menu').innerHTML = html;
+        document.querySelector("#menu #logout").addEventListener('click', logout);
+        render_piePagina();
     } else {
         loginstate.logged = false;
         html = `

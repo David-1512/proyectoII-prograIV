@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,10 +22,12 @@ public class FacturaImplement implements IFacturaService {
     @Transactional
     @Override
     public FacturasEntity save(FacturasDto facturaDto) {
+        Date fechaActual = new Date(System.currentTimeMillis());
+        Date fecha = new Date(fechaActual.getTime());
         FacturasEntity factura = FacturasEntity.builder()
-                .numFactura(facturaDto.getNumFactura())
-                .consecutivo(facturaDto.getConsecutivo())
-                .fechEmision(facturaDto.getFechEmision())
+                .numFactura(String.format("%010d", facturaDao.count()+1))
+                .consecutivo(countByIdProveedor(facturaDto.getIdProveedor()))
+                .fechEmision(fecha)
                 .total(facturaDto.getTotal())
                 .idProveedor(facturaDto.getIdProveedor())
                 .idCliente(facturaDto.getIdCliente())
@@ -42,6 +45,15 @@ public class FacturaImplement implements IFacturaService {
     @Transactional
     @Override
     public void deleteById(String id) {
+        FacturasEntity facturaDelete = findById(id);
+        for (FacturasEntity factura : facturaDao.findAll()) {
+            if (factura.getIdProveedor().equals(facturaDelete.getIdProveedor())) {
+                if(facturaDelete.getConsecutivo() < factura.getConsecutivo()){
+                    factura.setConsecutivo(factura.getConsecutivo()-1);
+                    facturaDao.save(factura);
+                }
+            }
+        }
         facturaDao.deleteById(id);
     }
 
@@ -61,5 +73,17 @@ public class FacturaImplement implements IFacturaService {
             }
         }
         return facturasPorProveedor;
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public int countByIdProveedor(String id) {
+        int countFacturas = 1;
+        for (FacturasEntity factura : facturaDao.findAll()) {
+            if (factura.getIdProveedor().equals(id)) {
+                countFacturas += 1;
+            }
+        }
+        return countFacturas;
     }
 }

@@ -58,7 +58,8 @@ public class LoginController {
     @GetMapping("/current-user")
     public User getCurrentUser(@AuthenticationPrincipal UserDetailsImp user) {
         if(user.getUser().getRol().equals("PRO")){
-            return new ProveedorDto().cloneSinContrasenia((ProveedorDto)user.getUser());
+            ProveedorEntity pE = proveedorService.findById(user.getUser().getId());
+            return new ProveedorDto().cloneSinContrasenia(pE);
         }
         return new AdministradorDto().cloneSinContrasenia((AdministradorDto)user.getUser());
     }

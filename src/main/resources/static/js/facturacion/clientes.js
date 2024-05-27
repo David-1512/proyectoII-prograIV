@@ -1,19 +1,15 @@
 var stateClientes ={
     list: new Array(),
     item : {id:"", nombre:""},
+    cliente: {id:"",nombre:""},
     id : "",
-    cliente:{id:"",nombre:""}
 }
 
 document.addEventListener("DOMContentLoaded",loaded);
 
 async function loaded(event) {
     loadProveedorClientes();
-    try {
-        await render_menu();
-    } catch (error) {
-        return;
-    }
+    try{ await menu();} catch(error){return;}
     document.getElementById("salirCliente").addEventListener("click", returnMenu);
     fetchAndListClientes();
 }

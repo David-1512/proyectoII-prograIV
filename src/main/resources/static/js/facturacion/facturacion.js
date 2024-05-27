@@ -1,4 +1,4 @@
-var factura ={
+var statefactura ={
     proveedor: {nombre:"Verrati Salazar",id:"86952"},
     cliente:{nombre:"",id:""},
     producto:{cod:"",nombre:"",precio:0.0},
@@ -7,70 +7,80 @@ var factura ={
     total: 0.0
 }
 
+let lineasServicio = [];
+
+var factura = {
+  numFactura: "",
+    consecutivo:"",
+    fechEmision:"",
+     total:0.0,
+    idCliente:"",
+    idProveedor: "",
+    medioPago: ""
+}
+
 document.addEventListener("DOMContentLoaded",loaded);
 
 async function loaded(event) {
    loadState();
-    try {
-        await render_menu();
-    } catch (error) {
-        return;
-    }
-
+    try{ await menu();} catch(error){return;}
     document.getElementById("buscarProducto").addEventListener("click", searchProduct);
     document.querySelector("#buscarCliente").addEventListener('click', searchClient);
     document.getElementById("agregarProducto").addEventListener("click", addProduct);
     document.getElementById("guardarFactura").addEventListener("click", addBill);
+    document.getElementById("verFacturas").addEventListener("click", seeBills);
+    document.getElementById("limpiarFactura").addEventListener("click", clean);
+
 }
 
 function loadState() {
-    document.getElementById("nombreProveedor").value = factura.proveedor.nombre;
+    document.getElementById("nombreProveedor").value = statefactura.proveedor.nombre;
     const cliente = localStorage.getItem('cliente');
     if (cliente && cliente !== "null" && cliente !== "") {
-        factura.cliente = JSON.parse(cliente);
-        document.getElementById("nombreCliente").value = factura.cliente.nombre;
+        statefactura.cliente = JSON.parse(cliente);
+        document.getElementById("nombreCliente").value = statefactura.cliente.nombre;
     }
 
     const producto = localStorage.getItem('producto');
     if (producto && producto !== "null" && producto !== "") {
-        factura.producto = JSON.parse(producto);
-        document.getElementById("detalleProducto").value = factura.producto.nombre;
+        statefactura.producto = JSON.parse(producto);
+        document.getElementById("detalleProducto").value = statefactura.producto.nombre;
     }
     const lineas = localStorage.getItem('listLineasServicio');
     if (lineas && lineas !== "null" && lineas !== "") {
-        factura.lineasServicio = JSON.parse(lineas);
+        statefactura.lineasServicio = JSON.parse(lineas);
         render_listLineasServicio();
     }
-    if (factura.lineasServicio.length === 0) {
+    if (statefactura.lineasServicio.length !== 0) {
         calculateTotal();
-        document.getElementById("totalFactura").value = factura.total;
+        document.getElementById("totalFactura").value = statefactura.total;
     }
 }
 
 function searchClient(){
-    localStorage.setItem('proveedor', JSON.stringify(factura.proveedor.id));
+    localStorage.setItem('proveedor', JSON.stringify(statefactura.proveedor.id));
     document.location = "/views/facturacion/viewClientes.html";
 }
 
 function searchProduct(){
-    localStorage.setItem('proveedor', JSON.stringify(factura.proveedor.id));
+    localStorage.setItem('proveedor', JSON.stringify(statefactura.proveedor.id));
     document.location = "/views/facturacion/viewProductos.html";
 }
 
 function addProduct(){
     var nuevaLineaServicio = {
-        cod: factura.lineasServicio.length + 1,
-        codProducto: factura.producto.cod,
-        nomProducto: factura.producto.nombre,
-        precioProducto: factura.producto.precio,
+        cod: statefactura.lineasServicio.length + 1,
+        codProducto: statefactura.producto.cod,
+        nomProducto: statefactura.producto.nombre,
+        precioProducto: statefactura.producto.precio,
         cantidad: document.getElementById("cantidad").value,
-        subtotal: calculateSubtotal(factura.producto.precio, document.getElementById("cantidad").value)
+        subtotal: calculateSubtotal(statefactura.producto.precio, document.getElementById("cantidad").value)
     };
 
-    factura.lineasServicio.push(nuevaLineaServicio);
-    localStorage.setItem('listLineasServicio', JSON.stringify(factura.lineasServicio));
-    render_listLineasServicio();
-    calculateTotal();
+    statefactura.lineasServicio.push(nuevaLineaServicio);
+    localStorage.setItem('listLineasServicio', JSON.stringify(statefactura.lineasServicio));
+    localStorage.removeItem('producto');
+    document.location = "/views/facturacion/viewFacturacion.html";
 }
 
 function calculateSubtotal(pre,cant){
@@ -78,17 +88,17 @@ function calculateSubtotal(pre,cant){
 }
 
 function calculateTotal(){
-    factura.total = 0.0;
-    for(let linea of factura.lineasServicio){
-        factura.total += linea.subtotal;
+    statefactura.total = 0.0;
+    for(let linea of statefactura.lineasServicio){
+        statefactura.total += linea.subtotal;
     }
-    document.getElementById("totalFactura").value = factura.total;
+    document.getElementById("totalFactura").value = statefactura.total;
 }
 
 function render_listLineasServicio(){
     var listado=document.getElementById("listLineasServicio");
     listado.innerHTML="";
-    factura.lineasServicio.forEach( item=>render_list_itemLineasServicio(listado,item));
+    statefactura.lineasServicio.forEach( item=>render_list_itemLineasServicio(listado,item));
 }
 
 function render_list_itemLineasServicio(listado,item){
@@ -119,7 +129,7 @@ function decreaseQuantity(item){
     if(item.cantidad !== 1){
         item.cantidad -= 1;
         item.subtotal = calculateSubtotal(item.precioProducto,item.cantidad);
-        localStorage.setItem('listLineasServicio', JSON.stringify(factura.lineasServicio));
+        localStorage.setItem('listLineasServicio', JSON.stringify(statefactura.lineasServicio));
         render_listLineasServicio();
        calculateTotal();
     }
@@ -132,32 +142,92 @@ function increaseQuantity(item){
         item.cantidad = parseInt(item.cantidad, 10);
         item.cantidad += 1;
         item.subtotal = calculateSubtotal(item.precioProducto,item.cantidad);
-    localStorage.setItem('listLineasServicio', JSON.stringify(factura.lineasServicio));
+    localStorage.setItem('listLineasServicio', JSON.stringify(statefactura.lineasServicio));
         render_listLineasServicio();
         calculateTotal();
 }
 
 function deleteLinea(item){
-      let indice = factura.lineasServicio.indexOf(item);
-    for(let linea of factura.lineasServicio){
-        if(indice < factura.lineasServicio.indexOf(linea)){
+      let indice = statefactura.lineasServicio.indexOf(item);
+    for(let linea of statefactura.lineasServicio){
+        if(indice < statefactura.lineasServicio.indexOf(linea)){
             linea.cod -= 1;
         }
     }
-    factura.lineasServicio.splice(indice,1);
-    localStorage.setItem('listLineasServicio', JSON.stringify(factura.lineasServicio));
+    statefactura.lineasServicio.splice(indice,1);
+    localStorage.setItem('listLineasServicio', JSON.stringify(statefactura.lineasServicio));
     calculateTotal();
     render_listLineasServicio();
 }
 
 function addBill(){
+    prepareBill();
+    if(statefactura.cliente.id === ""){
+        alert("Error: No se ha seleccionado un cliente");
+        return;
+    }
+    if(document.getElementById('metodosPago').value === "No seleccionado"){
+        alert("Error: No se ha seleccionado un metodo de pago");
+        return;
+    }
+    if(statefactura.lineasServicio.length === 0){
+        alert("Error: No se ha añadido ningún producto a la factura");
+        return;
+    }
     const request = new Request(backend +`/factura`, {method: 'POST',
         headers: { 'Content-Type': 'application/json'},
         body: JSON.stringify(factura)});
     (async ()=>{
         const response = await fetch(request);
         if (!response.ok) {errorMessage(response.status);return;}
-        alert("Factura guardada exitosamente");
+        addLinesService();
     })();
 }
 
+function prepareBill(){
+    factura.total = statefactura.total;
+    factura.idCliente = statefactura.cliente.id;
+    factura.idProveedor = statefactura.proveedor.id;
+    factura.medioPago = document.getElementById('metodosPago').value;
+}
+
+function addLinesService(){
+    prepareLineService();
+    const request = new Request(backend +`/lineasServicio`, {method: 'POST',
+        headers: { 'Content-Type': 'application/json'},
+        body: JSON.stringify(lineasServicio)});
+    (async ()=>{
+        const response = await fetch(request);
+        if (!response.ok) {errorMessage(response.status);return;}
+        alert("Factura guardada exitosamente");
+        clean();
+    })();
+}
+
+
+function prepareLineService(){
+    for(let linea of statefactura.lineasServicio){
+        const nuevaLineaServicio = {
+            id: "",
+            idLinea: linea.cod,
+            cantidad: linea.cantidad,
+            impuesto: 0,
+            subtotal: linea.subtotal,
+            codProducto: linea.codProducto,
+            numFactura: ""
+        };
+       lineasServicio.push(nuevaLineaServicio);
+    }
+}
+
+function seeBills(){
+    localStorage.setItem('proveedor', JSON.stringify(statefactura.proveedor.id));
+    document.location = "/views/facturacion/viewFacturas.html";
+}
+
+function clean(){
+    localStorage.removeItem('cliente');
+    localStorage.removeItem('producto');
+    localStorage.removeItem('listLineasServicio');
+    document.location = "/views/facturacion/viewFacturacion.html";
+}

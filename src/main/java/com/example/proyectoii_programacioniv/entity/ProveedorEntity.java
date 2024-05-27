@@ -43,6 +43,9 @@ public class ProveedorEntity implements Serializable {
     @Column(name = "tipo_identificacion")
     private String tipoId;
 
+    @Column(name = "id_actividad_comercial")
+    private int idActComercial;
+
     public ProveedorEntity(ProveedorDto proveedorDto) {
         this.id = proveedorDto.getId();
         this.nombre = proveedorDto.getNombre();
@@ -53,6 +56,7 @@ public class ProveedorEntity implements Serializable {
         this.ubicacion = proveedorDto.getUbicacion();
         this.nomComercial = proveedorDto.getNomComercial();
         this.tipoId = proveedorDto.getTipoId();
+        this.idActComercial = proveedorDto.getIdActComercial();
     }
 
     public ProveedorEntity clonePassCifrada(ProveedorDto proveedorDto) {
@@ -66,6 +70,9 @@ public class ProveedorEntity implements Serializable {
         this.ubicacion = proveedorDto.getUbicacion();
         this.nomComercial = proveedorDto.getNomComercial();
         this.tipoId = proveedorDto.getTipoId();
+        this.idActComercial = proveedorDto.getIdActComercial();
         return this;
     }
+
+
 }
