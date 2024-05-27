@@ -1,7 +1,7 @@
 package com.example.proyectoii_programacioniv.implement;
 
-import com.example.proyectoii_programacioniv.dao.ProductoCabysDao;
 import com.example.proyectoii_programacioniv.dao.ProductoProveedorDao;
+import com.example.proyectoii_programacioniv.dto.ProductoProveedorDto;
 import com.example.proyectoii_programacioniv.entity.ProductoProveedorEntity;
 import com.example.proyectoii_programacioniv.service.IProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +36,24 @@ public class ProductoImplement implements IProductoService {
         return productosPorProveedor;
     }
 
+    @Override
+    public List<ProductoProveedorDto> productosProveedor(String id) {
+        List<ProductoProveedorEntity> productosPorProveedor = productoDao.findByIdProveedor(id);
+        List<ProductoProveedorDto> productos = new ArrayList<>();
+
+        for(ProductoProveedorEntity producto : productosPorProveedor){
+            productos.add(ProductoProveedorDto.builder()
+                    .cod(producto.getCod())
+                    .descripcion(producto.getDescripcion())
+                    .precio(producto.getPrecio())
+                    .idProveedor(producto.getIdProveedor())
+                    .idProducto(producto.getIdProducto())
+                    .idUnidadMedida(producto.getIdUnidadMedida())
+                    .build());
+        }
+
+        return productos;
+    }
 
 
 }

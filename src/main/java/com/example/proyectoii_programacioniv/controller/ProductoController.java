@@ -1,6 +1,7 @@
 package com.example.proyectoii_programacioniv.controller;
 
 import com.example.proyectoii_programacioniv.dto.ProductoProveedorDto;
+import com.example.proyectoii_programacioniv.dto.ProveedorDto;
 import com.example.proyectoii_programacioniv.entity.ProductoProveedorEntity;
 import com.example.proyectoii_programacioniv.payload.MensajeResponse;
 import com.example.proyectoii_programacioniv.service.IProductoService;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -42,5 +44,15 @@ public class ProductoController {
                 .mensaje("Consulta de clientes exitosa")
                 .object(productosPorProveedor)
                 .build(),HttpStatus.OK);
+    }
+
+    @GetMapping("/productos/allProducts/{id}")
+    public List<ProductoProveedorDto> allProducts(@PathVariable String id) {
+        try{
+            return productoService.productosProveedor(id);
+        }
+        catch (Exception e){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
     }
 }

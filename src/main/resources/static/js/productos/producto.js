@@ -1,13 +1,13 @@
 var api=backend+'/productos';
 
-var state ={
+var product ={
     list: new Array(),
-    item : {idProducto:"", nombreProducto:"",descripcion:"",precio:0 ,impuestoProducto: 0, id: ""},
+    item : {idProducto:"", nombreProducto:"",descripcion:"",precio:0.0 ,impuestoProducto: 0.0, id: ""},
 }
 
 document.addEventListener("DOMContentLoaded",loaded);
 async function loaded(event){
-    try{ await menu();} catch(error){return;} //Cambiar a menu
+    try{ await menu();} catch(error){return;}
     productos();
 }
 
@@ -54,7 +54,7 @@ function search(){
     (async ()=>{
         const response = await fetch(request);
         if (!response.ok) {errorMessage(response.status);return;}
-        state.list = await response.json();
+        product.list = await response.json();
         render_list();
     })();
 }
@@ -67,11 +67,12 @@ function limpiar(){
 
 //--------------------------------- Metodos Busqueda-----------------------------
 function fetchAndList(){
-    const request = new Request(api+`/${state.item.id}`, {method: 'GET', headers: { }});
+    const request = new Request(api+`/allProducts/${loginstate.user.id}`, {method: 'GET', headers: { }});
     (async ()=>{
         const response = await fetch(request);
-        if (!response.ok) {errorMessage(response.status);return;}
-        state.list = await response.json();
+        if (!response.ok) {alert("ERROR"); errorMessage(response.status);return;}
+        product.list = await response.json();
+        alert(product.list);
         render_list();
     })();
 }
@@ -79,10 +80,11 @@ function fetchAndList(){
 function render_list(){
     var listado=document.getElementById("list");
     listado.innerHTML="";
-    state.list.forEach( item=>render_list_item(listado,item));
+    product.list.forEach( item=>render_list_item(listado,item));
 }
 
 function render_list_item(listado,item){
+    alert(item);
     var tr =document.createElement("tr");
     tr.innerHTML=`<td>${item.idProducto}</td>
                     <td>${item.nombreProducto}</td>
@@ -93,6 +95,6 @@ function render_list_item(listado,item){
                     
                     
 	// 				<td id='ver'><img src="/images/ver-mas.png" width="20" height="20"></td>`;
-    // tr.querySelector("#ver").addEventListener("click",()=>{ver(item.id);});
+    tr.querySelector("#ver").addEventListener("click",()=>{ver(item.id);});
     listado.append(tr);
 }
