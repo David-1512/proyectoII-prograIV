@@ -1,5 +1,5 @@
 var statefactura ={
-    proveedor: {nombre:"Verrati Salazar",id:"86952"},
+    proveedor: {nombre:"",id:""},
     cliente:{nombre:"",id:""},
     producto:{cod:"",nombre:"",precio:0.0},
     lineasServicio: new Array(),
@@ -22,7 +22,9 @@ var factura = {
 document.addEventListener("DOMContentLoaded",loaded);
 
 async function loaded(event) {
-   loadState();
+    statefactura.proveedor.id = localStorage.getItem('idProveedor');
+    statefactura.proveedor.nombre = localStorage.getItem('nomProveedor');
+    loadState();
     try{ await menu();} catch(error){return;}
     document.getElementById("buscarProducto").addEventListener("click", searchProduct);
     document.querySelector("#buscarCliente").addEventListener('click', searchClient);
