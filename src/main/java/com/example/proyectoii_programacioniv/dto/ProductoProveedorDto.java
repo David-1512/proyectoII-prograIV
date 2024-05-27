@@ -19,4 +19,7 @@ public class ProductoProveedorDto implements Serializable {
     private String idProveedor;
     private String idUnidadMedida;
     private String idProducto;
+
+
+
 }
