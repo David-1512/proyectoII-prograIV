@@ -100,14 +100,12 @@
 
 #tdMasc {
     width: 20px; height:20px;
-    background-image:url(../images/M.png);
     background-repeat: no-repeat;
     background-size: cover;
 }
 
 #tdFem {
     width: 20px; height:20px;
-    background-image:url(../images/F.png);
     background-repeat: no-repeat;
     background-size: cover;
 }
