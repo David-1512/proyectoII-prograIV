@@ -78,7 +78,15 @@ function addProduct(){
         cantidad: document.getElementById("cantidad").value,
         subtotal: calculateSubtotal(statefactura.producto.precio, document.getElementById("cantidad").value)
     };
-
+    if(nuevaLineaServicio.nomProducto === ""){
+        alert("Error: No se ha seleccionado un producto para Agregar");
+        return;
+    }
+    const resultado = statefactura.lineasServicio.find(linea => linea.codProducto === nuevaLineaServicio.codProducto);
+    if (resultado) {
+        alert("Error: Ya ese producto se encuentra en la lista");
+        return;
+    }
     statefactura.lineasServicio.push(nuevaLineaServicio);
     localStorage.setItem('listLineasServicio', JSON.stringify(statefactura.lineasServicio));
     localStorage.removeItem('producto');
