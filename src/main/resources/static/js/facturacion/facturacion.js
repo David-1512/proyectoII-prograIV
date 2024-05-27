@@ -37,6 +37,10 @@ async function loaded(event) {
 
 function loadState() {
     document.getElementById("nombreProveedor").value = statefactura.proveedor.nombre;
+    const medioPago = localStorage.getItem('medioPago');
+    if (medioPago && medioPago !== "null" && medioPago !== "") {
+        document.getElementById("metodosPago").value = JSON.parse(medioPago);
+    }
     const cliente = localStorage.getItem('cliente');
     if (cliente && cliente !== "null" && cliente !== "") {
         statefactura.cliente = JSON.parse(cliente);
@@ -60,11 +64,13 @@ function loadState() {
 }
 
 function searchClient(){
+    localStorage.setItem('medioPago', JSON.stringify(document.getElementById('metodosPago').value));
     localStorage.setItem('proveedor', JSON.stringify(statefactura.proveedor.id));
     document.location = "/views/facturacion/viewClientes.html";
 }
 
 function searchProduct(){
+    localStorage.setItem('medioPago', JSON.stringify(document.getElementById('metodosPago').value));
     localStorage.setItem('proveedor', JSON.stringify(statefactura.proveedor.id));
     document.location = "/views/facturacion/viewProductos.html";
 }
@@ -231,6 +237,7 @@ function prepareLineService(){
 }
 
 function seeBills(){
+    localStorage.setItem('medioPago', JSON.stringify(document.getElementById('metodosPago').value));
     localStorage.setItem('proveedor', JSON.stringify(statefactura.proveedor.id));
     document.location = "/views/facturacion/viewFacturas.html";
 }
@@ -239,5 +246,6 @@ function clean(){
     localStorage.removeItem('cliente');
     localStorage.removeItem('producto');
     localStorage.removeItem('listLineasServicio');
+    localStorage.removeItem('medioPago');
     document.location = "/views/facturacion/viewFacturacion.html";
 }

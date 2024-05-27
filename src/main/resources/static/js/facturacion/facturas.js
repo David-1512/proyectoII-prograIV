@@ -56,22 +56,22 @@ async function render_list_itemFacturas(listado,item){
                      <td>
 					<input id="genPDF" class="btn btn-primary" type="button" value="Generar PDF">
                     </td>
-                    <td>
+                   <!--<td>
 					<input id="elimFactura" class="btn btn-primary" type="button" value="Eliminar">
-                    </td>`;
+                    </td>-->`;
     tr.querySelector("#genXML").addEventListener("click", async () => {
         await generateXML(item);
     });
     tr.querySelector("#genPDF").addEventListener("click", async () => {
         await generatePDF(item);
     });
-    tr.querySelector("#elimFactura").addEventListener("click", () => { deleteServiceLine(item);});
+   // tr.querySelector("#elimFactura").addEventListener("click", () => { deleteServiceLine(item);});
     listado.append(tr);
 }
 
 async function generateXML(item){
        await searchClient(item);
-       //await searchSupplier(item);
+     //  await searchSupplier(item);
        await searchListProductos(item);
 
         var doc = document.implementation.createDocument(null, null, null);
@@ -190,7 +190,7 @@ async function generateXML(item){
 
 async function generatePDF(item){
     await searchClient(item);
-    //await searchSupplier(item);
+   // await searchSupplier(item);
     await searchListProductos(item);
 
     try {
@@ -355,24 +355,24 @@ async function searchListProductos(item){
 
 async function searchSupplier(item){
     const request = new Request(backend + `/proveedor/${item.idProveedor}`, {method: 'GET', headers: {}});
-        const response = await fetch(request);
-        if (!response.ok) {
-            errorMessage(response.status);
-            return;
-        }
-        const responseData = await response.json();
-        if (responseData.object) {
-            const proveedor = responseData.object;
-            stateFacturas.proveedor.id = proveedor.id;
-            stateFacturas.proveedor.nombre = proveedor.nombre;
-            stateFacturas.proveedor.telefono = proveedor.telefono;
-            stateFacturas.proveedor.tipoId = proveedor.tipoId;
-            stateFacturas.proveedor.nomComercial = proveedor.nomComercial;
-            stateFacturas.proveedor.correo = proveedor.correo;
-            stateFacturas.proveedor.ubicacion = proveedor.ubicacion;
-        } else {
-            errorMessage("Respuesta inválida del servidor");
-        }
+    const response = await fetch(request);
+    if (!response.ok) {
+        errorMessage(response.status);
+        return;
+    }
+    const responseData = await response.json();
+    if (responseData.object) {
+        const proveedor = responseData.object;
+       // stateFacturas.proveedor.id = proveedor.id; /
+       // stateFacturas.proveedor.nombre = proveedor.nombre;
+        stateFacturas.proveedor.telefono = proveedor.telefono;
+        stateFacturas.proveedor.tipoId = proveedor.tipoId;
+        stateFacturas.proveedor.nomComercial = proveedor.nomComercial;
+        stateFacturas.proveedor.correo = proveedor.correo;
+        stateFacturas.proveedor.ubicacion = proveedor.ubicacion;
+    } else {
+        errorMessage("Respuesta inválida del servidor");
+    }
 }
 
 
@@ -396,7 +396,7 @@ async function searchClient(item){
         }
 }
 
-function deleteServiceLine(item){
+/*function deleteServiceLine(item){
     let request = new Request(backend+`/lineasServicio/${item.numFactura}`,
         {method: 'DELETE', headers: {}});
     (async ()=>{
@@ -415,7 +415,7 @@ function deleteBill(item){
         fetchAndListFacturas();
     })();
 }
-
+*/
 function returnMenu(){
     document.location="/views/facturacion/viewFacturacion.html";
 }

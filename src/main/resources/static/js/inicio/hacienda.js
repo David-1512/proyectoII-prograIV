@@ -1,3 +1,5 @@
+var backend="http://localhost:8080/api/v1";
+
 var stateHacienda ={
    proveedor:{idProveedor:"",nombreProveedor: ""},
    cliente:{idCliente:"",nombreCliente: ""}
@@ -68,7 +70,7 @@ function existPerson() {
 }
 
 function addProveedorHacienda(){
-    const request = new Request(backend +`hacienda/proveedor`, {method: 'POST',
+    const request = new Request(backend +`/hacienda/proveedor`, {method: 'POST',
         headers: { 'Content-Type': 'application/json'},
         body: JSON.stringify(stateHacienda.proveedor)});
     (async ()=>{
@@ -80,7 +82,7 @@ function addProveedorHacienda(){
 }
 
 function addClienteHacienda(){
-    const request = new Request(backend +`hacienda/cliente`, {method: 'POST',
+    const request = new Request(backend +`/hacienda/cliente`, {method: 'POST',
         headers: { 'Content-Type': 'application/json'},
         body: JSON.stringify(stateHacienda.cliente)});
     (async ()=>{

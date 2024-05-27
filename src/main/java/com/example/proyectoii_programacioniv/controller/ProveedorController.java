@@ -1,6 +1,8 @@
 package com.example.proyectoii_programacioniv.controller;
 
+import com.example.proyectoii_programacioniv.dto.ClienteDto;
 import com.example.proyectoii_programacioniv.dto.ProveedorDto;
+import com.example.proyectoii_programacioniv.entity.ClienteEntity;
 import com.example.proyectoii_programacioniv.entity.ProveedorEntity;
 import com.example.proyectoii_programacioniv.payload.MensajeResponse;
 import com.example.proyectoii_programacioniv.service.IProveedorService;
@@ -26,4 +28,5 @@ public class ProveedorController {
                 .object(new ProveedorDto().cloneSinContrasenia(proveedor))
                         , HttpStatus.OK);
     }
+
 }
