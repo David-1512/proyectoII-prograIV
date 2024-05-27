@@ -1,5 +1,6 @@
 package com.example.proyectoii_programacioniv.entity;
 
+import com.example.proyectoii_programacioniv.dto.UnidadMedidaDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -22,4 +23,14 @@ public class UnidadMedidaEntity implements Serializable {
 
     @Column(name = "descripcion")
     private String descripcion;
+
+    public UnidadMedidaEntity(UnidadMedidaEntity unidadMedidaEntity) {
+        this.id = unidadMedidaEntity.getId();
+        this.descripcion = unidadMedidaEntity.getDescripcion();
+    }
+
+    public UnidadMedidaEntity(UnidadMedidaDto unidadMedidaDto) {
+        this.id = unidadMedidaDto.getId();
+        this.descripcion = unidadMedidaDto.getDescripcion();
+    }
 }

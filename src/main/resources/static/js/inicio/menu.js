@@ -119,7 +119,7 @@ async function render_menu() {
             document.location = "/views/facturacion/viewFacturacion.html";
         });
         document.querySelector("#menu #productos").addEventListener('click', e => {
-          //  document.location = "/views/productos/viewProductos.html";
+           document.location = "/views/productos/viewProductos.html";
         });
         document.querySelector("#menu #logout").addEventListener('click', logout);
         document.getElementById("usuario").addEventListener('click', e => {

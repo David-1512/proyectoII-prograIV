@@ -57,10 +57,13 @@ h2 {
 .container > .form-row > .form-group {
     margin-bottom: 10px;
 }
-.containerEdit {
+.containerEdit,.tit-form  {
     background-color: #f2f2f2; /* Color gris de fondo */
-    padding: 20px; /* Añade espacio interno al contenedor si lo deseas */
+    padding: 30px; /* Añade espacio interno al contenedor si lo deseas */
+    margin-top: -70px;
+
 }
+
 .fixed-header th {
     position: sticky;
     top: 0;
@@ -80,6 +83,11 @@ body {
 table {
     border-collapse: collapse;
     width: 500px;
+}
+
+.container-box{
+    margin-bottom: 15px;
+    margin-left: 80px;
 }
 
 

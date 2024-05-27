@@ -72,7 +72,7 @@ function render_actividadview(){
                 <div class="container-box">
                     <div class="search-container">
                         <form name="formulario" class="search-form">
-                            <input type="text" name="prod" id="prod" placeholder="Buscar Producto" >                            
+                            <input type="text" name="prod" id="prod" placeholder="Buscar Actividad" >                            
                             <button id="search" type="button" class="search-button">Buscar</button>
                             <button id="limpiar" type="button" class="search-button">Limpiar</button>
                         </form>

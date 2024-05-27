@@ -241,7 +241,7 @@ input.invalid {box-shadow: 0 0 2px 2px red;}
 
 /*-------------------------------------------*/
 
-.registrooverlay, .proveedoroverylay, .actividadoverlay {
+.registrooverlay, .proveedoroverylay, .actividadoverlay , .productooverlay{
     display: flex;
     visibility: hidden;
     position: absolute;
@@ -255,7 +255,7 @@ input.invalid {box-shadow: 0 0 2px 2px red;}
     transition: all 1s ease;
 }
 
-.registrooverlay.active, .proveedoroverylay.active, actividadoverlay.active {
+.registrooverlay.active, .proveedoroverylay.active, .actividadoverlay.active, productooverlay.active {
     opacity: 0.5;
     visibility: visible;
 }
@@ -277,7 +277,7 @@ input.invalid {box-shadow: 0 0 2px 2px red;}
     transition: all 0.5s linear;
 }
 
-.proveedorview .actividadview{
+.proveedorview{
     display: flex;
     flex-direction: column;
     visibility: hidden;
@@ -294,7 +294,7 @@ input.invalid {box-shadow: 0 0 2px 2px red;}
     border-radius: 10px;
     transition: all 0.5s linear;
 }
-.actividadview{
+.actividadview, .productoview{
     display: flex;
     flex-direction: column;
     visibility: hidden;
@@ -312,7 +312,7 @@ input.invalid {box-shadow: 0 0 2px 2px red;}
     transition: all 0.5s linear;
 }
 
-.registroview.active, .proveedorview.active, .actividadview.active {
+.registroview.active, .proveedorview.active, .actividadview.active, .productoview.active{
     top: 5%;
     visibility: visible;
 }
@@ -337,7 +337,7 @@ input.invalid {box-shadow: 0 0 2px 2px red;}
     margin-top: 20px;
 }
 
-div.actividadview{
+div.actividadview, div.productoview{
     align-items: initial;
 }
 

@@ -1,5 +1,6 @@
 package com.example.proyectoii_programacioniv.entity;
 
+import com.example.proyectoii_programacioniv.dto.ProductoCabysDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -25,4 +26,16 @@ public class ProductoCabysEntity implements Serializable {
 
     @Column(name = "impuesto")
     private String impuestoProducto;
+
+    public ProductoCabysEntity(ProductoCabysDto productoCabysDto){
+        this.idProducto = productoCabysDto.getIdProducto();
+        this.nombreProducto = productoCabysDto.getNombreProducto();
+        this.impuestoProducto = productoCabysDto.getImpuestoProducto();
+    }
+
+    public ProductoCabysEntity(ProductoCabysEntity productoCabysEntity){
+        this.idProducto = productoCabysEntity.getIdProducto();
+        this.nombreProducto = productoCabysEntity.getNombreProducto();
+        this.impuestoProducto = productoCabysEntity.getImpuestoProducto();
+    }
 }
