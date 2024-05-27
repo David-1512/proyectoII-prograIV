@@ -44,7 +44,7 @@ public class ProveedorEntity implements Serializable {
     private String tipoId;
 
     @Column(name = "id_actividad_comercial")
-    private int idActComercial;
+    private String idActComercial;
 
     public ProveedorEntity(ProveedorDto proveedorDto) {
         this.id = proveedorDto.getId();

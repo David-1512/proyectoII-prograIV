@@ -17,7 +17,7 @@ public class ProveedorDto extends User implements Serializable{
     private String ubicacion;
     private String nomComercial;
     private String tipoId;
-    private int idActComercial;
+    private String idActComercial;
 
     public ProveedorDto(String id, String nombre, String correo, String telefono, String contrasena, char estado, String ubicacion, String nomComercial, String tipoId) {
         super(id, nombre, contrasena, "PRO", estado);
@@ -26,6 +26,7 @@ public class ProveedorDto extends User implements Serializable{
         this.ubicacion = ubicacion;
         this.nomComercial = nomComercial;
         this.tipoId = tipoId;
+        this.idActComercial = null;
     }
 
     public ProveedorDto(ProveedorEntity proveedorEntity) {
