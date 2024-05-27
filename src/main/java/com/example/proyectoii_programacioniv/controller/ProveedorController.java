@@ -18,7 +18,7 @@ public class ProveedorController {
 
     @Autowired
     private IProveedorService proveedorService;
-    @GetMapping("proveedor/{id}")
+    @GetMapping("/proveedor/{id}")
     public ResponseEntity<?> showById(@PathVariable String id){
        ProveedorEntity proveedor =  proveedorService.findById(id);
         return new ResponseEntity<>(MensajeResponse.builder()

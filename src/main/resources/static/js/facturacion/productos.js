@@ -1,6 +1,6 @@
 var stateProductos ={
     list: new Array(),
-    item : {cod:"", nombre:"",precio:0.0},
+    item : {cod:"",descripcion:"",precio:0.0},
     id : "",
     producto:{cod:"",nombre:"",precio:0.0}
 }
@@ -42,7 +42,7 @@ function render_listProductos(){
 function render_list_itemProductos(listado,item){
     var tr =document.createElement("tr");
     tr.innerHTML=`<td>${item.cod}</td>
-					<td>${item.nombre}</td>
+					<td>${item.descripcion}</td>
 					<td>${item.precio}</td>
 					<td>
 					<input id="agregarProducto" class="btn btn-primary" type="button" value="Agregar">
@@ -63,7 +63,7 @@ function addProducto(cod) {
         if (responseData.object) {
             const producto = responseData.object;
             stateProductos.producto.cod = producto.cod;
-            stateProductos.producto.nombre = producto.nombre;
+            stateProductos.producto.nombre = producto.descripcion;
             stateProductos.producto.precio = producto.precio;
             localStorage.setItem('producto', JSON.stringify(stateProductos.producto));
             returnMenu();

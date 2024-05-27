@@ -20,7 +20,7 @@ public class LineaServicioController {
     @Autowired
     private ILineaServicioService lineaServicioService;
 
-    @PostMapping("lineasServicio")
+    @PostMapping("/lineasServicio")
     public ResponseEntity<?> create(@RequestBody List<LineaServicioDto> lineasServicioDto) {
         try {
             lineaServicioService.saveAll(lineasServicioDto);
@@ -36,7 +36,7 @@ public class LineaServicioController {
         }
     }
 
-    @GetMapping("lineasServicio/{id}")
+    @GetMapping("/lineasServicio/{id}")
     public ResponseEntity<?> showAllByIdFactura(@PathVariable String id) {
         List<LineaServicioEntity> lineasServicioPorFactura = lineaServicioService.findAllByIdFactura(id);
         return new ResponseEntity<>(MensajeResponse.builder()
@@ -45,7 +45,7 @@ public class LineaServicioController {
                 .build(), HttpStatus.OK);
     }
 
-    @DeleteMapping("lineasServicio/{id}")
+    @DeleteMapping("/lineasServicio/{id}")
     public ResponseEntity<?> deleteAllByIdFactura(@PathVariable String id) {
         try {
             List<LineaServicioEntity> lineasServicioDelete = lineaServicioService.findAllByIdFactura(id);

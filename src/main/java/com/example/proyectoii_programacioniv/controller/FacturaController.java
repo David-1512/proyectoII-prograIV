@@ -22,6 +22,7 @@ public class FacturaController {
     public ResponseEntity<?> create(@RequestBody FacturasDto facturaDto){
         FacturasEntity facturaSave = null;
         try {
+            System.out.println(facturaDto);
             facturaSave = facturaService.save(facturaDto);
             facturaDto = FacturasDto.builder()
                     .numFactura(facturaSave.getNumFactura())
@@ -45,7 +46,7 @@ public class FacturaController {
         }
     }
 
-    @DeleteMapping("factura/{id}")
+    @DeleteMapping("/factura/{id}")
     public ResponseEntity<?> delete(@PathVariable String id){
         try{
             FacturasEntity facturaDelete = facturaService.findById(id);
@@ -61,7 +62,7 @@ public class FacturaController {
     }
 
 
-    @GetMapping("facturas/{id}")
+    @GetMapping("/facturas/{id}")
     public ResponseEntity<?> showAllByIdProveedor(@PathVariable String id){
         List<FacturasEntity> facturasPorProveedor = facturaService.findAllByIdProveedor(id);
         return new ResponseEntity<>(MensajeResponse.builder()

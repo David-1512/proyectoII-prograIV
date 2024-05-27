@@ -176,7 +176,7 @@ function addBill(){
         alert("Error: No se ha añadido ningún producto a la factura");
         return;
     }
-    const request = new Request(backend +`/factura`, {method: 'POST',
+    let request = new Request(backend+'/factura', {method: 'POST',
         headers: { 'Content-Type': 'application/json'},
         body: JSON.stringify(factura)});
     (async ()=>{
