@@ -14,7 +14,7 @@ import java.io.Serializable;
 @Builder
 public class ProductoProveedorDto implements Serializable {
     private String cod;
-    private String nombre;
+    private String descripcion;
     private Double precio;
     private String idProveedor;
     private String idUnidadMedida;
