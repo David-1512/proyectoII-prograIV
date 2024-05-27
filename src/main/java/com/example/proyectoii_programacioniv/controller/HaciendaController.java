@@ -1,7 +1,9 @@
 package com.example.proyectoii_programacioniv.controller;
 
+import com.example.proyectoii_programacioniv.dto.ClienteDto;
 import com.example.proyectoii_programacioniv.dto.ClienteStubDto;
 import com.example.proyectoii_programacioniv.dto.ProveedorStubDto;
+import com.example.proyectoii_programacioniv.entity.ClienteEntity;
 import com.example.proyectoii_programacioniv.entity.ClienteStubEntity;
 import com.example.proyectoii_programacioniv.entity.ProveedorStubEntity;
 import com.example.proyectoii_programacioniv.payload.MensajeResponse;
@@ -10,10 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -65,5 +64,31 @@ public class HaciendaController {
         }
     }
 
+    @GetMapping("hacienda/proveedor/{id}")
+    public ResponseEntity<?> showexistIdProveedor(@PathVariable String id){
+        if(haciendaService.existsProveedorById(id)){
+            return new ResponseEntity<>(MensajeResponse.builder()
+                    .mensaje("Consulta de proveedor exitosa")
+                    .object(true)
+                    .build(),HttpStatus.OK);
+        }
+        return new ResponseEntity<>(MensajeResponse.builder()
+                .mensaje("Consulta de proveedor exitosa")
+                .object(false)
+                .build(),HttpStatus.OK);
+    }
 
+    @GetMapping("hacienda/cliente/{id}")
+    public ResponseEntity<?> showexistIdCliente(@PathVariable String id){
+        if(haciendaService.existsClientById(id)){
+            return new ResponseEntity<>(MensajeResponse.builder()
+                    .mensaje("Consulta de cliente exitosa")
+                    .object(true)
+                    .build(),HttpStatus.OK);
+        }
+        return new ResponseEntity<>(MensajeResponse.builder()
+                .mensaje("Consulta de cliente exitosa")
+                .object(false)
+                .build(),HttpStatus.OK);
+    }
 }
