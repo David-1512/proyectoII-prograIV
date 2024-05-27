@@ -1,9 +1,6 @@
 package com.example.proyectoii_programacioniv.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
@@ -14,15 +11,14 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@IdClass(ClienteProveedorId.class)
 @Table(name = "cliente_proveedor", schema = "proyecto2_progra4", catalog = "")
 public class ClienteProveedorEntity implements Serializable {
     @Id
-    @Column(name = "id")
-    private String id;
-
     @Column(name = "id_proveedor")
     private String idProveedor;
 
+    @Id
     @Column(name = "id_cliente")
     private String idCliente;
 }

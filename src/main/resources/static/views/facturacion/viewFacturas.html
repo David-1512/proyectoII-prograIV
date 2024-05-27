@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Facturas</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/clientes.css">
+    <script src="/js/inicio/menu.js"></script>
+    <script src="/js/facturacion/facturas.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.10.0/dist/pdf-lib.min.js"></script>
+</head>
+<body>
+<header  id="menu"></header>
+<div class = "centered">
+    <div class="btn-container">
+        <input id="salirFacturas" class="btn btn-primary" type="button" value="Salir">
+    </div>
+    <div style="overflow-y: auto; max-height: 300px;">
+        <table class='container'>
+            <thead>
+            <tr >
+                <th >Consecutivo</th>
+                <th >NumFactura</th>
+                <th >IdCliente</th>
+                <th >NomCliente</th>
+                <th >...</th>
+                <th >...</th>
+                <th >...</th>
+            </tr>
+            </thead>
+            <tbody class='container' id='listFacturas'>
+            </tbody>
+        </table>
+    </div>
+</div>
+<footer  class = "bg-dark text-center text-white fixed-bottom" id="piePagina"></footer>
+
+</body>
+</html>

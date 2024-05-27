@@ -11,14 +11,95 @@
 <body>
 <header id="menu"></header>
 <div class="container-box" id="contenedorPrincipal">
+    <div class="juntos">
+        <div class="izquierda" style="overflow-y: auto; max-height: 300px;">
+            <h3>Factura</h3>
+            <div class="buttom-Facturas">
+                <input id="verFacturas" class="btn btn-primary" type="button" value="Facturas">
+            </div>
+            <br>
+            <br>
+            <div class="containerEdit">
+                <form class="form-row">
+                    <div  class="form-group col-md-12">
+                        <label for="nombreProveedor">Proveedor:</label>
+                        <input type="text" id="nombreProveedor" readonly>
+                    </div>
+                    <br>
+                    <div  class="form-group col-md-12">
+                        <label for="nombreCliente">Cliente:</label>
+                        <input type="text"  id="nombreCliente"  placeholder="No seleccionado" readonly>
+                        <input id="buscarCliente" class="btn btn-primary" type="button" value="Buscar">
+                    </div>
+                    <br>
+                    <div  class="form-group col-md-12">
+                        <label>Producto:</label>
+                        <input type="text"  id="detalleProducto"  placeholder="No seleccionado" readonly>
+                        <input id="buscarProducto" class="btn btn-primary" type="button" value="Buscar">
+                        <label for="cantidad" class="col-form-label col-auto">Cantidad:</label>
+                        <input type="number"  id="cantidad" name="cantidad" value="1" min="1">
+                        <input id="agregarProducto" class="btn btn-primary" type="button" value="Agregar">
+                    </div>
+                    <br>
+                    <div class="form-group col-md-12">
+                        <label>Metodo de pago:</label>
+                        <select id="metodosPago" name="comboBox">
+                            <option value="No seleccionado">No seleccionado</option>
+                            <option value="Efectivo">Efectivo</option>
+                            <option value="Tarjeta">Tarjeta</option>
+                            <option value="Cheque">Cheque</option>
+                            <option value="Transferencia">Transferencia</option>
+                            <option value="Recaudado por terceros">Recaudado por terceros</option>
+                            <option value="Otros">Otros</option>
+                        </select>
+                    </div>
+                    <br>
+                    <input id="guardarFactura" class="btn btn-primary" type="button" value="Guardar">
+                    <input id="limpiarFactura" class="btn btn-primary" type="button" value="Limpiar">
+                </form>
+            </div>
+        </div>
+        <div class="derecha" >
+            <br>
+            <h5>Lista de productos</h5>
+            <table  class="table table-hover">
+                <thead   class="thead-light">
+                <tr  class="fixed-header">
+                    <th scope="col">#NumLinea</th>
+                    <th scope="col">CodProducto</th>
+                    <th scope="col">Detalle</th>
+                    <th scope="col">PrecioUnitario</th>
+                    <th scope="col">Cantidad</th>
+                    <th scope="col">Subtotal</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody class='container' id='listLineasServicio'>
+                </tbody>
+            </table>
+        </div>
+        <br>
+        <div class="form-group col-md-12">
+            <label for="totalFactura">Total Factura:</label>
+            <input type="number" id="totalFactura" value="0.00" readonly>
+        </div>
+    </div>
+</div>
+<footer class = "bg-dark text-center text-white fixed-bottom" id="piePagina"></footer>
+</body>
+</html>
+
+
+<!--
+<div class="container-box" id="contenedorPrincipal">
     <div id="contenido">
     <div class="subtitulo">
-        <h2>Facturación</h2>
+
     </div>
     <div class="buttom-verFacturas">
-        <form>
-            <button type="submit"  class="btn btn-primary">Ver Facturas</button>
-        </form>
+        <input id="verFacturas" class="btn btn-primary" type="button" value="Facturas">
     </div>
     <div class="form-group row align-items-center">
         <label for="nombreProveedor" class="col-form-label col-auto">Proveedor:</label>
@@ -72,9 +153,18 @@
             <input type="number" class="form-control" id="totalFactura" value="0.00" readonly>
         </div>
     </div>
+        <div class="form-group row align-items-center">
+            <label class="col-form-label col-auto">Metodo de pago:</label>
+            <select id="metodosPago" name="comboBox">
+                <option value="1">No seleccionado</option>
+                <option value="2">Efectivo</option>
+                <option value="3">Tarjeta</option>
+                <option value="4">Cheque</option>
+                <option value="5">Transferencia</option>
+                <option value="6">Recaudado por terceros</option>
+                <option value="7">Otros</option>
+            </select>
+        </div>
     <input id="guardarFactura" class="btn btn-primary" type="button" value="Guardar">
     </div>
-</div>
-<footer class = "bg-dark text-center text-white fixed-bottom" id="piePagina"></footer>
-</body>
-</html>
+</div>-->

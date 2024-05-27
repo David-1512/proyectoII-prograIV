@@ -15,4 +15,7 @@ public interface IFacturaService {
     //boolean existsById(String id);
 
     List<FacturasEntity> findAllByIdProveedor(String id);
+
+    int countByIdProveedor(String id);
+
 }

@@ -33,6 +33,7 @@ public class ProveedorController {
                         .ubicacion(proveedor.getUbicacion())
                         .nomComercial(proveedor.getNomComercial())
                         .tipoId(proveedor.getTipoId())
+                        .idActComercial(proveedor.getIdActComercial())
                         .build())
                 .build(), HttpStatus.OK);
     }

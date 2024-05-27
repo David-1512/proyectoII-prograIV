@@ -42,4 +42,7 @@ public class ProveedorEntity implements Serializable {
 
     @Column(name = "tipo_identificacion")
     private String tipoId;
+
+    @Column(name = "id_actividad_comercial")
+    private int idActComercial;
 }

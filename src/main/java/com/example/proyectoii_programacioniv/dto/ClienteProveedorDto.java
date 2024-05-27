@@ -10,7 +10,6 @@ import java.io.Serializable;
 @ToString
 @Builder
 public class ClienteProveedorDto implements Serializable {
-    private String id;
     private String idProveedor;
     private String idCliente;
 }

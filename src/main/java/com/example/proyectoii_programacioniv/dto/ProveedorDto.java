@@ -21,4 +21,5 @@ public class ProveedorDto implements Serializable {
     private String ubicacion;
     private String nomComercial;
     private String tipoId;
+    private int idActComercial;
 }

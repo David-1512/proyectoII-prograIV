@@ -1,8 +1,8 @@
 var stateClientes ={
     list: new Array(),
     item : {id:"", nombre:""},
+    cliente: {id:"",nombre:""},
     id : "",
-    cliente:{id:"",nombre:""}
 }
 
 document.addEventListener("DOMContentLoaded",loaded);
