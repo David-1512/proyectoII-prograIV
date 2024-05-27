@@ -16,6 +16,8 @@ public interface IProveedorService {
 
     void save(ProveedorDto proveedorDto);
 
+    void save(ProveedorEntity proveedorEntity);
+
     User getProveedorSinContrasenia(String id);
 
     ProveedorDto invertirEstado(ProveedorEntity proveedor);

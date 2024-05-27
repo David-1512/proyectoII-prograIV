@@ -47,6 +47,7 @@ h2 {
     margin-left: 20px;
     /*flex: 1;*/
     margin-right: 80px; /* Reducimos el espacio entre la tabla y el formulario */
+
 }
 
 .formulario{
@@ -75,5 +76,12 @@ body {
     padding: 10px;
     border-radius: 5px;
 }
+
+table {
+    border-collapse: collapse;
+    width: 500px;
+}
+
+
 
 

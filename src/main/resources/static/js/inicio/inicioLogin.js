@@ -146,7 +146,6 @@ function registrarse(event) {
 }
 
 function validar_registro(){
-    alert("validar_registro");
     let proveedor={id:document.getElementById("idR").value,
         nombre:document.getElementById("nombre").value,
         password:document.getElementById("conf_clave").value,

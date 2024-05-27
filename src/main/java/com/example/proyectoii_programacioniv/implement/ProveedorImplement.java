@@ -45,6 +45,11 @@ public class ProveedorImplement implements IProveedorService {
     }
 
     @Override
+    public void save(ProveedorEntity proveedorEntity) {
+        proveedorDao.save(proveedorEntity);
+    }
+
+    @Override
     public User getProveedorSinContrasenia(String id) {
         ProveedorEntity proveedorEntity = proveedorDao.findById(id).orElse(null);
         if (proveedorEntity != null) {

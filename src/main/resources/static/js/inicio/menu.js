@@ -51,7 +51,7 @@ async function render_menu() {
                                 </li>
                                 <li id="logout" class="nav-item">
                                     <a class="nav-link" href = "#">Logout</a>
-                                </li>                                
+                                </li>      
                             </ul>
                         </div>
                     </div>
@@ -98,6 +98,10 @@ async function render_menu() {
                                 <li id="logout" class="nav-item">
                                     <a class="nav-link" href = "#">Logout</a>
                                 </li>
+                                <li  class="nav-item">
+                                    <a class="nav-link" href = "#"></a>
+                                </li>
+                                <li id="usuario" class="nav-item nav-link"><img src="/images/usuario.png" alt="usuario" height="20" width="20">&nbsp &nbsp ${loginstate.user.nombre}</li>
                             </ul>
                         </div>
                     </div>
@@ -118,7 +122,9 @@ async function render_menu() {
           //  document.location = "/views/productos/viewProductos.html";
         });
         document.querySelector("#menu #logout").addEventListener('click', logout);
-
+        document.getElementById("usuario").addEventListener('click', e => {
+            document.location = "/views/proveedor/viewDatosProveedor.html";
+        });
         render_piePagina();
 
     } else if(loginstate.logged && loginstate.user.rol == "PRO" && loginstate.user.estado != 'A'){
@@ -135,6 +141,10 @@ async function render_menu() {
                                 <li id="logout" class="nav-item">
                                     <a class="nav-link" href = "#">Logout</a>
                                 </li>
+                                <li  class="nav-item">
+                                    <a class="nav-link" href = "#"></a>
+                                </li>
+                                <li id="usuario" class="nav-item nav-link"><img src="/images/usuario.png" alt="usuario" height="20" width="20">&nbsp &nbsp ${loginstate.user.nombre}</li>
                             </ul>
                         </div>
                     </div>                 
@@ -143,6 +153,9 @@ async function render_menu() {
         `;
         document.querySelector('#menu').innerHTML = html;
         document.querySelector("#menu #logout").addEventListener('click', logout);
+        document.getElementById("usuario").addEventListener('click', e => {
+            document.location = "/views/proveedor/viewDatosProveedor.html";
+        });
         render_piePagina();
     } else {
         loginstate.logged = false;

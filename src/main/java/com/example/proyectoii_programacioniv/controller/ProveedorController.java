@@ -7,10 +7,8 @@ import com.example.proyectoii_programacioniv.service.IProveedorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -25,5 +23,25 @@ public class ProveedorController {
                 .mensaje("Consulta de proveedor exitosa")
                 .object(new ProveedorDto().cloneSinContrasenia(proveedor))
                         , HttpStatus.OK);
+    }
+
+    @PutMapping("/updateProveedor/{id}")
+    public ProveedorDto updateProveedor(@PathVariable String id, @RequestBody ProveedorDto proveedorDto){
+        try{
+            ProveedorEntity proveedor = proveedorService.findById(id);
+            proveedor.setCorreo(proveedorDto.getCorreo());
+            proveedor.setTelefono(proveedorDto.getTelefono());
+            proveedor.setEstado('A');
+            proveedor.setUbicacion(proveedorDto.getUbicacion());
+            proveedor.setNomComercial(proveedorDto.getNomComercial());
+            proveedor.setTipoId(proveedorDto.getTipoId());
+            proveedor.setIdActComercial(proveedorDto.getIdActComercial());
+            proveedorService.save(proveedor);
+            return new ProveedorDto().cloneSinContrasenia(proveedor);
+        }
+        catch (Exception e){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Solicitudes no encontradas", e);
+        }
+
     }
 }
