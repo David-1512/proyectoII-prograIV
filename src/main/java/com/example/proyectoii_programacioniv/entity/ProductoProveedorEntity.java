@@ -18,7 +18,7 @@ public class ProductoProveedorEntity implements Serializable {
     private String cod;
 
     @Column(name = "descripcion")
-    private String nombre;
+    private String descripcion;
 
     @Column(name = "precio_unitario")
     private Double precio;

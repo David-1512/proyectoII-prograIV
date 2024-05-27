@@ -26,7 +26,7 @@ public class ProductoController {
                 .mensaje("Consulta de producto exitosa")
                 .object(ProductoProveedorDto.builder()
                         .cod(producto.getCod())
-                        .nombre(producto.getNombre())
+                        .descripcion(producto.getDescripcion())
                         .precio(producto.getPrecio())
                         .idProveedor(producto.getIdProveedor())
                         .idProducto(producto.getIdProducto())
