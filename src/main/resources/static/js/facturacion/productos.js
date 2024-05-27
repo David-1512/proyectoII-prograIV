@@ -9,11 +9,7 @@ document.addEventListener("DOMContentLoaded",loaded);
 
 async function loaded(event) {
     loadProveedorProductos();
-    try {
-        await render_menu();
-    } catch (error) {
-        return;
-    }
+    try{ await menu();} catch(error){return;}
     document.getElementById("salirProducto").addEventListener("click", returnMenu);
     fetchAndListProductos();
 }

@@ -23,12 +23,7 @@ document.addEventListener("DOMContentLoaded",loaded);
 
 async function loaded(event) {
    loadState();
-    try {
-        await render_menu();
-    } catch (error) {
-        return;
-    }
-
+    try{ await menu();} catch(error){return;}
     document.getElementById("buscarProducto").addEventListener("click", searchProduct);
     document.querySelector("#buscarCliente").addEventListener('click', searchClient);
     document.getElementById("agregarProducto").addEventListener("click", addProduct);

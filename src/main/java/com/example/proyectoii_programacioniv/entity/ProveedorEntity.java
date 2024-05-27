@@ -1,12 +1,11 @@
 package com.example.proyectoii_programacioniv.entity;
 
+import com.example.proyectoii_programacioniv.dto.ProveedorDto;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.Objects;
 
 @Entity
 @Data
@@ -44,7 +43,8 @@ public class ProveedorEntity implements Serializable {
     @Column(name = "tipo_identificacion")
     private String tipoId;
 
-
+    @Column(name = "id_actividad_comercial")
+    private int idActComercial;
 
     public ProveedorEntity(ProveedorDto proveedorDto) {
         this.id = proveedorDto.getId();
@@ -56,6 +56,7 @@ public class ProveedorEntity implements Serializable {
         this.ubicacion = proveedorDto.getUbicacion();
         this.nomComercial = proveedorDto.getNomComercial();
         this.tipoId = proveedorDto.getTipoId();
+        this.idActComercial = proveedorDto.getIdActComercial();
     }
 
     public ProveedorEntity clonePassCifrada(ProveedorDto proveedorDto) {
@@ -69,9 +70,9 @@ public class ProveedorEntity implements Serializable {
         this.ubicacion = proveedorDto.getUbicacion();
         this.nomComercial = proveedorDto.getNomComercial();
         this.tipoId = proveedorDto.getTipoId();
+        this.idActComercial = proveedorDto.getIdActComercial();
         return this;
     }
 
-    @Column(name = "id_actividad_comercial")
-    private int idActComercial;
+
 }
