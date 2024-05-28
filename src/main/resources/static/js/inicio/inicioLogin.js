@@ -87,7 +87,7 @@ function render_registroview(){
                     </div>
                     <div class="form-group">
                         <label> 
-                            <input placeholder="Clave" type="password" class="form-control" name="password" id="password" value="">
+                            <input placeholder="Clave" type="password" class="form-control" name="passwordR" id="passwordR" value="">
                         </label>
                     </div>
                     <div class="form-group">
@@ -147,11 +147,12 @@ function registrarse(event) {
     document.querySelector("#registroview #tipo").value = "";
     document.querySelector("#registroview #id").value = "";
     document.querySelector("#registroview #nombre").value = "";
-    document.querySelector("#registroview #password").value = "";
+    document.querySelector("#registroview #passwordR").value = "";
     document.querySelector("#registroview #conf_clave").value = "";
 }
 
 async function validar_registro(){
+    if (!validarFormulario()) return;
     const requestProveedor = new Request(backend +`/hacienda/proveedor/${document.getElementById("idR").value}`, { method: 'GET', headers: {} });
     const responseProveedor = await fetch(requestProveedor);
     if (!responseProveedor.ok) {
@@ -164,7 +165,6 @@ async function validar_registro(){
         return;
     }
     else{
-        alert("validar_registro");
         let proveedor={id:document.getElementById("idR").value,
             nombre:document.getElementById("nombre").value,
             password:document.getElementById("conf_clave").value,
@@ -179,3 +179,46 @@ async function validar_registro(){
     }
 }
 
+
+function validarFormulario(){
+    let campos = ["tipo", "idR", "nombre", "passwordR", "conf_clave"];
+    let todosCompletos = true;
+    for (let i = 0; i < campos.length; i++) {
+        let campo = document.getElementById(campos[i]);
+        //let label = document.querySelector(`label[for=${campos[i]}]`);
+        if (!campo.value) {
+            campo.style.borderColor = "red";
+            campo.style.borderWidth = "2px";
+            //label.style.color = "red";
+            //label.style.fontWeight = "bold";
+            todosCompletos = false;
+        } else {
+            campo.style.borderColor = "";
+            campo.style.borderWidth = "";
+
+            //label.style.color = "";
+            //label.style.fontWeight = "";
+        }
+    }
+    let password = document.getElementById("passwordR");
+    let conf_clave = document.getElementById("conf_clave");
+    if (password.value !== conf_clave.value) {
+        password.style.borderColor = "red";
+        password.style.borderWidth = "2px";
+        conf_clave.style.borderColor = "red";
+        conf_clave.style.borderWidth = "2px";
+        todosCompletos = false;
+        alert("Las contraseña y la confirmación de la contraseña no coinciden.");
+        return false;
+    }
+    if (!todosCompletos) {
+        alert("Por favor complete todos los campos correctamente.");
+        return false;
+    }
+    return true;
+}
+
+function validateEmail(email) {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+}

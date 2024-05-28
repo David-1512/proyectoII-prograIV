@@ -97,8 +97,8 @@ function productos(event){
                                 <button id="seleccionar" type="button" class="btn btn-primary form-control">Seleccionar Producto Cabys</button>
                             </div>
                             <div class="form-group col-md-12">
-                                <label for="nombre">Descripcion:</label>
-                                <input type="text" class="form-control" id="descripcion" name="nombre">
+                                <label for="descripcion">Descripcion:</label>
+                                <input type="text" class="form-control" id="descripcion" name="descripcion">
                             </div>
                             <div class="form-group col-md-12">
                                 <label for="precio">Precio:</label>
@@ -192,6 +192,7 @@ function clear(event){
 }
 
 function guardar(event){
+    if (!validarFormulario()) {return;}
     event.preventDefault();
     let productoProveedorState = {
         cod: document.getElementById("codigoReal").value,
@@ -391,7 +392,32 @@ function seleccionar(item){
     toggle_productoview();
 }
 
+function validarFormulario(){
+    let campos = ["codigo", "nombre", "descripcion", "precio", "unidadMedidaSelect"];
+    let todosCompletos = true;
+    for (let i = 0; i < campos.length; i++) {
+        let campo = document.getElementById(campos[i]);
+        let label = document.querySelector(`label[for=${campos[i]}]`);
+        if (!campo.value || (campo.type === "number" && campo.value <= 0)) {
+            campo.style.borderColor = "red";
+            campo.style.borderWidth = "2px";
+            label.style.color = "red";
+            label.style.fontWeight = "bold";
+            todosCompletos = false;
+        } else {
+            campo.style.borderColor = "";
+            campo.style.borderWidth = "";
 
+            label.style.color = "";
+            label.style.fontWeight = "";
+        }
+    }
+    if (!todosCompletos) {
+        alert("Por favor complete todos los campos correctamente.");
+        return false;
+    }
+    return true;
+}
 
 
 
