@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hacienda</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet"   href="/css/login.css">
+    <link rel="stylesheet" type="text/css" href="/css/estilo.css">
+    <script src="/js/inicio/hacienda.js"></script>
+</head>
+<body>
+<header id="menu"></header>
+<div class="inicio-Sesion">
+    <form class="login-form" name="formulario">
+        <h4 class="text-center">Hacienda</h4>
+        <br>
+        <div class="form-group">
+            <label>Tipo</label>
+            <select id="tipo" name="tipo" class="form-group">
+                <option value="No seleccionado">No seleccionado</option>
+                <option value="cliente">Cliente</option>
+                <option value="proveedor">Proveedor</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>
+                <input placeholder="Identificacion" type="text" class="form-control" name="id" id="id" value="">
+            </label>
+        </div>
+        <div class="form-group">
+            <label>
+                <input placeholder="Nombre" type="text" class="form-control" name="nom" id="nom" value="">
+            </label>
+        </div>
+        <div class="form-group nav-link">
+            <input id="registrarse" class="btn btn-primary" type="button" value="Registrarse">
+            <input id="salirHacienda" class="btn btn-primary" type="button" value="Volver">
+        </div>
+
+    </form>
+</div>
+<footer class = "bg-dark text-center text-white fixed-bottom" id="piePagina"></footer>
+</body>
+</html>
+

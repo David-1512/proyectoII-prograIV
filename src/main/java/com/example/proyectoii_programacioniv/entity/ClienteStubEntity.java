@@ -21,5 +21,5 @@ public class ClienteStubEntity implements Serializable {
     private String idCliente;
 
     @Column(name = "nombre")
-    private String nombreProveedor;
+    private String nombreCliente;
 }

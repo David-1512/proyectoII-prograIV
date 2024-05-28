@@ -11,7 +11,8 @@ async function checkuser(){
     if (response.ok) {
         loginstate.logged = true;
         loginstate.user = await response.json();
-        localStorage.setItem('proveedor', JSON.stringify(loginstate.user));
+        localStorage.setItem('idProveedor',loginstate.user.id);
+        localStorage.setItem('nomProveedor',loginstate.user.nombre);
     }
     else {
         loginstate.logged = false;

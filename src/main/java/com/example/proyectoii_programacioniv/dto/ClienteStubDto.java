@@ -9,7 +9,7 @@ import java.io.Serializable;
 @Data
 @ToString
 @Builder
-public class ClienteStub implements Serializable {
+public class ClienteStubDto implements Serializable {
     private String idCliente;
-    private String nombreProveedor;
+    private String nombreCliente;
 }

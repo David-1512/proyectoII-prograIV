@@ -30,7 +30,7 @@ public class FacturaController {
                     .total(facturaSave.getTotal())
                     .idProveedor(facturaSave.getIdProveedor())
                     .idCliente(facturaSave.getIdCliente())
-                    .medioPago(facturaDto.getMedioPago())
+                    .medioPago(facturaSave.getMedioPago())
                     .build();
             return new ResponseEntity<>(MensajeResponse.builder()
                     .mensaje("Factura Guardada correctamente")
@@ -45,7 +45,7 @@ public class FacturaController {
         }
     }
 
-    @DeleteMapping("factura/{id}")
+    @DeleteMapping("/factura/{id}")
     public ResponseEntity<?> delete(@PathVariable String id){
         try{
             FacturasEntity facturaDelete = facturaService.findById(id);
@@ -61,7 +61,7 @@ public class FacturaController {
     }
 
 
-    @GetMapping("facturas/{id}")
+    @GetMapping("/facturas/{id}")
     public ResponseEntity<?> showAllByIdProveedor(@PathVariable String id){
         List<FacturasEntity> facturasPorProveedor = facturaService.findAllByIdProveedor(id);
         return new ResponseEntity<>(MensajeResponse.builder()

@@ -1,5 +1,5 @@
 var statefactura ={
-    proveedor: {nombre:"Verrati Salazar",id:"86952"},
+    proveedor: {nombre:"",id:""},
     cliente:{nombre:"",id:""},
     producto:{cod:"",nombre:"",precio:0.0},
     lineasServicio: new Array(),
@@ -22,7 +22,9 @@ var factura = {
 document.addEventListener("DOMContentLoaded",loaded);
 
 async function loaded(event) {
-   loadState();
+    statefactura.proveedor.id = localStorage.getItem('idProveedor');
+    statefactura.proveedor.nombre = localStorage.getItem('nomProveedor');
+    loadState();
     try{ await menu();} catch(error){return;}
     document.getElementById("buscarProducto").addEventListener("click", searchProduct);
     document.querySelector("#buscarCliente").addEventListener('click', searchClient);
@@ -35,6 +37,10 @@ async function loaded(event) {
 
 function loadState() {
     document.getElementById("nombreProveedor").value = statefactura.proveedor.nombre;
+    const medioPago = localStorage.getItem('medioPago');
+    if (medioPago && medioPago !== "null" && medioPago !== "") {
+        document.getElementById("metodosPago").value = JSON.parse(medioPago);
+    }
     const cliente = localStorage.getItem('cliente');
     if (cliente && cliente !== "null" && cliente !== "") {
         statefactura.cliente = JSON.parse(cliente);
@@ -58,11 +64,13 @@ function loadState() {
 }
 
 function searchClient(){
+    localStorage.setItem('medioPago', JSON.stringify(document.getElementById('metodosPago').value));
     localStorage.setItem('proveedor', JSON.stringify(statefactura.proveedor.id));
     document.location = "/views/facturacion/viewClientes.html";
 }
 
 function searchProduct(){
+    localStorage.setItem('medioPago', JSON.stringify(document.getElementById('metodosPago').value));
     localStorage.setItem('proveedor', JSON.stringify(statefactura.proveedor.id));
     document.location = "/views/facturacion/viewProductos.html";
 }
@@ -76,7 +84,15 @@ function addProduct(){
         cantidad: document.getElementById("cantidad").value,
         subtotal: calculateSubtotal(statefactura.producto.precio, document.getElementById("cantidad").value)
     };
-
+    if(nuevaLineaServicio.nomProducto === ""){
+        alert("Error: No se ha seleccionado un producto para Agregar");
+        return;
+    }
+    const resultado = statefactura.lineasServicio.find(linea => linea.codProducto === nuevaLineaServicio.codProducto);
+    if (resultado) {
+        alert("Error: Ya ese producto se encuentra en la lista");
+        return;
+    }
     statefactura.lineasServicio.push(nuevaLineaServicio);
     localStorage.setItem('listLineasServicio', JSON.stringify(statefactura.lineasServicio));
     localStorage.removeItem('producto');
@@ -174,7 +190,7 @@ function addBill(){
         alert("Error: No se ha añadido ningún producto a la factura");
         return;
     }
-    const request = new Request(backend +`/factura`, {method: 'POST',
+    let request = new Request(backend+'/factura', {method: 'POST',
         headers: { 'Content-Type': 'application/json'},
         body: JSON.stringify(factura)});
     (async ()=>{
@@ -221,6 +237,7 @@ function prepareLineService(){
 }
 
 function seeBills(){
+    localStorage.setItem('medioPago', JSON.stringify(document.getElementById('metodosPago').value));
     localStorage.setItem('proveedor', JSON.stringify(statefactura.proveedor.id));
     document.location = "/views/facturacion/viewFacturas.html";
 }
@@ -229,5 +246,6 @@ function clean(){
     localStorage.removeItem('cliente');
     localStorage.removeItem('producto');
     localStorage.removeItem('listLineasServicio');
+    localStorage.removeItem('medioPago');
     document.location = "/views/facturacion/viewFacturacion.html";
 }

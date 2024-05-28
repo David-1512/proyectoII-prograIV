@@ -56,22 +56,22 @@ async function render_list_itemFacturas(listado,item){
                      <td>
 					<input id="genPDF" class="btn btn-primary" type="button" value="Generar PDF">
                     </td>
-                    <td>
+                   <!--<td>
 					<input id="elimFactura" class="btn btn-primary" type="button" value="Eliminar">
-                    </td>`;
+                    </td>-->`;
     tr.querySelector("#genXML").addEventListener("click", async () => {
         await generateXML(item);
     });
     tr.querySelector("#genPDF").addEventListener("click", async () => {
         await generatePDF(item);
     });
-    tr.querySelector("#elimFactura").addEventListener("click", () => { deleteServiceLine(item);});
+   // tr.querySelector("#elimFactura").addEventListener("click", () => { deleteServiceLine(item);});
     listado.append(tr);
 }
 
 async function generateXML(item){
        await searchClient(item);
-       await searchSupplier(item);
+     //  await searchSupplier(item);
        await searchListProductos(item);
 
         var doc = document.implementation.createDocument(null, null, null);
@@ -190,7 +190,7 @@ async function generateXML(item){
 
 async function generatePDF(item){
     await searchClient(item);
-    await searchSupplier(item);
+   // await searchSupplier(item);
     await searchListProductos(item);
 
     try {
@@ -200,32 +200,31 @@ async function generatePDF(item){
         const timesRomanFont = await pdfDoc.embedFont(PDFLib.StandardFonts.TimesRoman);
         const { rgb } = PDFLib;
 
-
         const titulo = "FACTURACION S.A";
-        const fecha = "FECHA: " + item.fechEmision;
-        const numFactura = "FACTURA: " + item.numFactura;
+        const fecha = "FECHA: " + (item.fechEmision || "");
+        const numFactura = "FACTURA: " + (item.numFactura || "");
 
-        const nomProveedor = "NOMBRE: " + stateFacturas.proveedor.nombre;
-        const idProveedor = "IDENTIFICACION: " + stateFacturas.proveedor.id;
-        const nomComProveedor = "NOMBRE COMERCIAL: " + stateFacturas.proveedor.nomComercial;
-        const telProveedor = "TELEFONO: " + stateFacturas.proveedor.telefono;
-        const correoProveedor = "CORREO: " + stateFacturas.proveedor.correo;
-        const ubiProveedor = "UBICACION: " + stateFacturas.proveedor.ubicacion;
+        const nomProveedor = "NOMBRE: " + (stateFacturas.proveedor.nombre || "");
+        const idProveedor = "IDENTIFICACION: " + (stateFacturas.proveedor.id || "");
+        const nomComProveedor = "NOMBRE COMERCIAL: " + (stateFacturas.proveedor.nomComercial || "");
+        const telProveedor = "TELEFONO: " + (stateFacturas.proveedor.telefono || "");
+        const correoProveedor = "CORREO: " + (stateFacturas.proveedor.correo || "");
+        const ubiProveedor = "UBICACION: " + (stateFacturas.proveedor.ubicacion || "");
 
-        const nomCliente = "NOMBRE: " + stateFacturas.cliente.nombre;
-        const idCliente = "IDENTIFICACION: " + stateFacturas.cliente.id;
-        const telCliente = "TELEFONO: " + stateFacturas.cliente.telefono;
-        const correoCliente = "CORREO: " + stateFacturas.cliente.correo;
+        const nomCliente = "NOMBRE: " + (stateFacturas.cliente.nombre || "");
+        const idCliente = "IDENTIFICACION: " + (stateFacturas.cliente.id || "");
+        const telCliente = "TELEFONO: " + (stateFacturas.cliente.telefono || "");
+        const correoCliente = "CORREO: " + (stateFacturas.cliente.correo || "");
 
-        const total = "TOTAL: " + item.total +" colones";
+        const total = "TOTAL: " + (item.total || 0) + " colones";
 
         let y = page.getHeight() - 50;
 
-        page.drawText(titulo, { x: 240, y,size: fontSize, font: timesRomanFont });
+        page.drawText(titulo, { x: 240, y, size: fontSize, font: timesRomanFont });
         y -= 50;
-        page.drawText(fecha, { x: 420, y,size: fontSize, font: timesRomanFont });
+        page.drawText(fecha, { x: 420, y, size: fontSize, font: timesRomanFont });
         y -= 20;
-        page.drawText(numFactura, { x: 420, y,size: fontSize, font: timesRomanFont});
+        page.drawText(numFactura, { x: 420, y, size: fontSize, font: timesRomanFont });
 
         y -= 50;
         page.drawText("PROVEEDOR:", { x: 50, y, size: fontSize, font: timesRomanFont });
@@ -240,8 +239,8 @@ async function generatePDF(item){
         page.drawText(nomComProveedor, { x: 50, y, size: fontSize, font: timesRomanFont });
         page.drawText(telCliente, { x: 420, y, size: fontSize, font: timesRomanFont });
         y -= 20;
-        page.drawText(telProveedor, { x: 50, y, size: fontSize, font: timesRomanFont});
-        page.drawText(correoCliente, { x: 420, y, size: fontSize, font: timesRomanFont});
+        page.drawText(telProveedor, { x: 50, y, size: fontSize, font: timesRomanFont });
+        page.drawText(correoCliente, { x: 420, y, size: fontSize, font: timesRomanFont });
         y -= 20;
         page.drawText(correoProveedor, { x: 50, y, size: fontSize, font: timesRomanFont });
         y -= 20;
@@ -251,7 +250,7 @@ async function generatePDF(item){
         page.drawText("PRODUCTOS", { x: 240, y, size: 12 });
         y -= 30;
 
-        const tableHeaders = ['NUMLINEA', 'DETALLE', 'CODPRODUCTO', 'UNIMEDIDA', 'PRECIO', 'CANTIDAD', 'SUBTOTAL'];
+        const tableHeaders = ['NumLinea', 'Detalle', 'CodProducto', 'UniMedida', 'Precio', 'Cantidad', 'Subtotal'];
         const tableWidth = page.getWidth() - 100;
         const cellWidth = tableWidth / tableHeaders.length;
 
@@ -284,35 +283,38 @@ async function generatePDF(item){
         for (let lineaServicio of stateFacturas.listLineas) {
             await searchProducto(lineaServicio.codProducto);
             const row = [
-                lineaServicio.idLinea,
-                stateFacturas.producto.nombre,
-                lineaServicio.codProducto,
-                stateFacturas.producto.idUniMedida,
-                stateFacturas.producto.precio.toString(),
-                lineaServicio.cantidad.toString(),
-                lineaServicio.subtotal.toString()
+                lineaServicio.idLinea || "",
+                stateFacturas.producto.nombre || "",
+                lineaServicio.codProducto || "",
+                stateFacturas.producto.idUniMedida || "",
+                stateFacturas.producto.precio?.toString() || "",
+                lineaServicio.cantidad?.toString() || "",
+                lineaServicio.subtotal?.toString() || ""
             ];
+
+            let maxLines = 0;
+
             row.forEach((cell, i) => {
                 const cellX = 50 + i * cellWidth;
                 const cellMaxWidth = cellWidth - 5;
                 const lines = splitText(cell, cellMaxWidth, fontSize, timesRomanFont);
+                maxLines = Math.max(maxLines, lines.length);
 
-                lines.forEach(line => {
-                    page.drawText(line, { x: cellX, y, size: fontSize, font: timesRomanFont, color: rgb(0, 0, 0) });
-                    y -= fontSize + 2;
+                lines.forEach((line, lineIndex) => {
+                    page.drawText(line, { x: cellX, y: y - (lineIndex * (fontSize + 2)), size: fontSize, font: timesRomanFont, color: rgb(0, 0, 0) });
                 });
-
-                y += lines.length * (fontSize + 2);
             });
-            y -= 20;
+
+            y -= (fontSize + 2) * maxLines + 20;
         }
+
         y -= 60;
         page.drawText(total, { x: 50, y, size: fontSize, font: timesRomanFont });
 
         const pdfBytes = await pdfDoc.save();
         var pdfBlob = new Blob([pdfBytes], { type: 'application/pdf' });
-        saveAs(pdfBlob,`${item.idCliente}_${item.numFactura}.pdf`);
-    }catch (error) {
+        saveAs(pdfBlob, `${item.idCliente}_${item.numFactura}.pdf`);
+    } catch (error) {
         console.error("Hubo un error:", error);
     }
 }
@@ -328,7 +330,7 @@ async function searchProducto(cod){
     if (responseData.object) {
         const producto = responseData.object;
         stateFacturas.producto.idProducto = producto.idProducto;
-        stateFacturas.producto.nombre = producto.nombre;
+        stateFacturas.producto.nombre = producto.descripcion;
         stateFacturas.producto.precio = producto.precio;
         stateFacturas.producto.idUniMedida = producto.idUnidadMedida;
     } else {
@@ -353,24 +355,24 @@ async function searchListProductos(item){
 
 async function searchSupplier(item){
     const request = new Request(backend + `/proveedor/${item.idProveedor}`, {method: 'GET', headers: {}});
-        const response = await fetch(request);
-        if (!response.ok) {
-            errorMessage(response.status);
-            return;
-        }
-        const responseData = await response.json();
-        if (responseData.object) {
-            const proveedor = responseData.object;
-            stateFacturas.proveedor.id = proveedor.id;
-            stateFacturas.proveedor.nombre = proveedor.nombre;
-            stateFacturas.proveedor.telefono = proveedor.telefono;
-            stateFacturas.proveedor.tipoId = proveedor.tipoId;
-            stateFacturas.proveedor.nomComercial = proveedor.nomComercial;
-            stateFacturas.proveedor.correo = proveedor.correo;
-            stateFacturas.proveedor.ubicacion = proveedor.ubicacion;
-        } else {
-            errorMessage("Respuesta inválida del servidor");
-        }
+    const response = await fetch(request);
+    if (!response.ok) {
+        errorMessage(response.status);
+        return;
+    }
+    const responseData = await response.json();
+    if (responseData.object) {
+        const proveedor = responseData.object;
+       // stateFacturas.proveedor.id = proveedor.id; /
+       // stateFacturas.proveedor.nombre = proveedor.nombre;
+        stateFacturas.proveedor.telefono = proveedor.telefono;
+        stateFacturas.proveedor.tipoId = proveedor.tipoId;
+        stateFacturas.proveedor.nomComercial = proveedor.nomComercial;
+        stateFacturas.proveedor.correo = proveedor.correo;
+        stateFacturas.proveedor.ubicacion = proveedor.ubicacion;
+    } else {
+        errorMessage("Respuesta inválida del servidor");
+    }
 }
 
 
@@ -394,7 +396,7 @@ async function searchClient(item){
         }
 }
 
-function deleteServiceLine(item){
+/*function deleteServiceLine(item){
     let request = new Request(backend+`/lineasServicio/${item.numFactura}`,
         {method: 'DELETE', headers: {}});
     (async ()=>{
@@ -413,7 +415,7 @@ function deleteBill(item){
         fetchAndListFacturas();
     })();
 }
-
+*/
 function returnMenu(){
     document.location="/views/facturacion/viewFacturacion.html";
 }
