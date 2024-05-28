@@ -1,9 +1,9 @@
 var statefactura ={
     proveedor: {nombre:"",id:""},
     cliente:{nombre:"",id:""},
-    producto:{cod:"",nombre:"",precio:0.0},
+    producto:{cod:"",nombre:"",precio:0.0,impuesto:"",unidadMedida:""},
     lineasServicio: new Array(),
-    lineaServicio: {cod:0,cantidad:0,subtotal:0.0,codProducto:"",nomProducto:"",precioProducto:0.0},
+    lineaServicio: {cod:0,cantidad:0,subtotal:0.0,impuesto:0.0,codProducto:"",nomProducto:"",precioProducto:0.0},
     total: 0.0
 }
 
@@ -79,10 +79,12 @@ function addProduct(){
     var nuevaLineaServicio = {
         cod: statefactura.lineasServicio.length + 1,
         codProducto: statefactura.producto.cod,
-        nomProducto: statefactura.producto.nombre,
+        nomProducto: statefactura.producto.nombre +' ('+statefactura.producto.unidadMedida+')',
         precioProducto: statefactura.producto.precio,
         cantidad: document.getElementById("cantidad").value,
-        subtotal: calculateSubtotal(statefactura.producto.precio, document.getElementById("cantidad").value)
+        impuesto: calculateImpuesto(statefactura.producto.impuesto,document.getElementById("cantidad").value),
+        subtotal: calculateSubtotal(statefactura.producto.precio, document.getElementById("cantidad").value,
+            calculateImpuesto(statefactura.producto.impuesto,document.getElementById("cantidad").value))
     };
     if(nuevaLineaServicio.nomProducto === ""){
         alert("Error: No se ha seleccionado un producto para Agregar");
@@ -98,9 +100,12 @@ function addProduct(){
     localStorage.removeItem('producto');
     document.location = "/views/facturacion/viewFacturacion.html";
 }
-
-function calculateSubtotal(pre,cant){
-    return pre*cant;
+function calculateImpuesto(impuesto, cant) {
+    const resultado = impuesto * cant;
+    return parseFloat(resultado.toFixed(2));
+}
+function calculateSubtotal(pre,cant,imp){
+    return (pre*cant)+((pre*cant)*imp);
 }
 
 function calculateTotal(){
@@ -123,6 +128,7 @@ function render_list_itemLineasServicio(listado,item){
                     <td>${item.codProducto}</td>
                     <td>${item.nomProducto}</td>
                     <td>${item.precioProducto}</td>
+                      <td>${item.impuesto}</td>
                     <td>${item.cantidad}</td>
                     <td>${item.subtotal}</td>
 					<td>

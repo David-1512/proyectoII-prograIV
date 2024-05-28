@@ -25,7 +25,7 @@ public class ProductoCabysEntity implements Serializable {
     private String nombreProducto;
 
     @Column(name = "impuesto")
-    private String impuestoProducto;
+    private Float impuestoProducto;
 
     public ProductoCabysEntity(ProductoCabysDto productoCabysDto){
         this.idProducto = productoCabysDto.getIdProducto();

@@ -15,7 +15,7 @@ import java.io.Serializable;
 public class ProductoCabysDto implements Serializable {
     private String idProducto;
     private String nombreProducto;
-    private String impuestoProducto;
+    private Float impuestoProducto;
 
     public ProductoCabysDto(ProductoCabysDto productoCabysDto){
         this.idProducto = productoCabysDto.getIdProducto();
