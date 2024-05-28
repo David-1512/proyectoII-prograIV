@@ -14,7 +14,6 @@ async function loaded(event) {
         if(loginstate.user.rol=="PRO"&& loginstate.user.estado=='D'){
             document.location="/views/proveedor/viewDatosProveedor.html";
         }else{
-            alert("Usuario no Bienvenida");
             document.location="/views/inicio/viewBienvenida.html";
         }
 

@@ -96,7 +96,6 @@ public class ClienteController {
                 else{
                     clienteService.save(new ClienteEntity(clienteDto));
                 }
-                clienteService.saveClienteProveedor(cliente,proveedor);
             }else{
                 throw new ResponseStatusException(HttpStatus.NOT_FOUND);
             }
@@ -107,6 +106,30 @@ public class ClienteController {
         return new ResponseEntity<>(MensajeResponse.builder()
                 .mensaje("Registro de cliente exitoso")
                 .object(clienteDto)
+                .build(),HttpStatus.OK);
+    }
+
+    @PostMapping("/registrarRelacion/{idP}/{idC}")
+    public ResponseEntity<?> registrarClienteProveedor(@PathVariable String idP, @PathVariable String idC){
+        try{
+            ProveedorEntity proveedor =  proveedorService.findById(idP);
+            if(proveedor != null){
+                ClienteEntity cliente = clienteService.findById(idC);
+                if(cliente != null){
+                    clienteService.saveClienteProveedor(cliente,proveedor);
+                }else{
+                    throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+                }
+            }else{
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) {
+            System.out.println(e.getStackTrace());
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(MensajeResponse.builder()
+                .mensaje("Registro de cliente exitoso")
+                .object(idC)
                 .build(),HttpStatus.OK);
     }
 
@@ -133,4 +156,5 @@ public class ClienteController {
                 .object(idCliente)
                 .build(),HttpStatus.OK);
     }
+
 }

@@ -145,7 +145,22 @@ function guardar(event){
         {method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(clienteProveedorState)});
     (async ()=>{
         const response = await fetch(request);
-        if (!response.ok) {errorMessage(response.status);}
+        if (!response.ok) {
+            errorMessage(response.status);
+        }
+        else{
+            guardarRelacion();
+        }
+    })();
+}
+function guardarRelacion(){
+    let request = new Request(backend+`/registrarRelacion/${loginstate.user.id}`+`/`+`${document.getElementById("identificacion").value}`,
+        {method: 'POST', headers: { 'Content-Type': 'application/json' }});
+    (async ()=>{
+        const response = await fetch(request);
+        if (!response.ok) {
+            errorMessage(response.status);
+        }
         fetchAndListClientesProv();
     })();
 }
