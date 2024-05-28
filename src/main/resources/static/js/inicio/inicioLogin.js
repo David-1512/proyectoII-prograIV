@@ -100,14 +100,21 @@ function render_registroview(){
                     <div class="form-group nav-link">
                         <input id="registrarse" class="btn btn-primary" type="button" value="Registrarse">
                         <input id="cancelar" class="btn btn-primary" type="button" value="Cancelar">
+                         <input id="hacienda" class="btn btn-primary" type="button" value="Hacienda">
                     </div>            
                 </form>                
            </div>`;
     view=document.createElement('div');
     view.innerHTML=html;
     document.body.appendChild(view);
-    document.querySelector("#registroview #registrarse").addEventListener("click", validar_registro);
+    document.querySelector("#registroview #registrarse").addEventListener("click",
+        async () => {
+            await validar_registro();
+        });
     document.querySelector("#registroview #cancelar").addEventListener("click",toggle_registroview);
+    document.querySelector("#registroview #hacienda").addEventListener("click", () => {
+        document.location = "/views/inicio/viewHacienda.html";
+    });
 }
 
 function toggle_registroview(){
@@ -145,20 +152,31 @@ function registrarse(event) {
     document.querySelector("#registroview #conf_clave").value = "";
 }
 
-function validar_registro(){
-    alert("validar_registro");
-    let proveedor={id:document.getElementById("idR").value,
-        nombre:document.getElementById("nombre").value,
-        password:document.getElementById("conf_clave").value,
-        tipoId:document.getElementById("tipo").value
-    };
-    let request = new Request(backend+'/registro', {method: 'POST',
-        headers: { 'Content-Type': 'application/json'},
-        body: JSON.stringify(proveedor)});
-    (async ()=>{
+async function validar_registro(){
+    const requestProveedor = new Request(backend +`/hacienda/proveedor/${document.getElementById("idR").value}`, { method: 'GET', headers: {} });
+    const responseProveedor = await fetch(requestProveedor);
+    if (!responseProveedor.ok) {
+        errorMessage(responseProveedor.status);
+        return;
+    }
+    const responseDataProveedor = await responseProveedor.json();
+    if (responseDataProveedor === false) {
+        alert("Error: Este proveedor no se puede registrar ya que no se encuentra en hacienda");
+        return;
+    }
+    else{
+        alert("validar_registro");
+        let proveedor={id:document.getElementById("idR").value,
+            nombre:document.getElementById("nombre").value,
+            password:document.getElementById("conf_clave").value,
+            tipoId:document.getElementById("tipo").value
+        };
+        let request = new Request(backend+'/registro', {method: 'POST',
+            headers: { 'Content-Type': 'application/json'},
+            body: JSON.stringify(proveedor)});
         const response = await fetch(request);
         if (!response.ok) {errorMessage(response.status);return;}
         document.location="/views/inicio/inicioLogin.html";
-    })();
+    }
 }
 
