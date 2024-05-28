@@ -24,6 +24,7 @@ public class ProyectoIiProgramacionIvApplication {
                 .authorizeHttpRequests(customizer -> customizer
                         .requestMatchers("/api/v1/login").permitAll()
                         .requestMatchers("/api/v1/registro").permitAll()
+                        .requestMatchers("/api/v1/hacienda/**").permitAll()
                         .requestMatchers("/api/v1/logout").authenticated()
                         .requestMatchers(HttpMethod.POST,"/api/**").hasAnyAuthority("ADM","PRO")
                         .requestMatchers("/api/**").hasAnyAuthority("ADM","PRO")

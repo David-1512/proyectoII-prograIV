@@ -160,7 +160,7 @@ async function validar_registro(){
         return;
     }
     const responseDataProveedor = await responseProveedor.json();
-    if (responseDataProveedor === false) {
+    if (responseDataProveedor.object === false) {
         alert("Error: Este proveedor no se puede registrar ya que no se encuentra en hacienda");
         return;
     }
