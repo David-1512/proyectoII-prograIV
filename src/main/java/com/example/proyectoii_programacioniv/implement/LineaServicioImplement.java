@@ -41,7 +41,6 @@ public class LineaServicioImplement implements ILineaServicioService {
             lineasServicio.add(lineaServicio);
             count++;
         }
-        System.out.println(lineasServicio);
         lineaServicioDao.saveAll(lineasServicio);
     }
 
