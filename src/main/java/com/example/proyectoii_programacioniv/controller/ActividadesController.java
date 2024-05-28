@@ -31,7 +31,6 @@ public class ActividadesController {
             return actividadService.buscar(nombre);
         }
         catch (Exception e){
-            e.getStackTrace();
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
     }
