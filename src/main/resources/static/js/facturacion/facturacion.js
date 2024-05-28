@@ -149,9 +149,10 @@ function render_list_itemLineasServicio(listado,item){
 function decreaseQuantity(item){
     item.cantidad = parseInt(item.cantidad, 10);
     if(item.cantidad !== 1){
+        const impuesto = item.impuesto/item.cantidad;
         item.cantidad -= 1;
-        item.impuesto = calculateImpuesto(item.impuesto,item.cantidad)
-        item.subtotal = calculateSubtotal(item.precioProducto,item.cantidad);
+        item.impuesto = calculateImpuesto(impuesto,item.cantidad)
+        item.subtotal = calculateSubtotal(item.precioProducto,item.cantidad,impuesto);
         localStorage.setItem('listLineasServicio', JSON.stringify(statefactura.lineasServicio));
         render_listLineasServicio();
        calculateTotal();
@@ -163,9 +164,10 @@ function decreaseQuantity(item){
 
 function increaseQuantity(item){
         item.cantidad = parseInt(item.cantidad, 10);
+        const impuesto = item.impuesto/item.cantidad;
         item.cantidad += 1;
-        item.impuesto = calculateImpuesto(item.impuesto,item.cantidad)
-        item.subtotal = calculateSubtotal(item.precioProducto,item.cantidad);
+        item.impuesto = calculateImpuesto(impuesto,item.cantidad,)
+        item.subtotal = calculateSubtotal(item.precioProducto,item.cantidad,impuesto);
     localStorage.setItem('listLineasServicio', JSON.stringify(statefactura.lineasServicio));
         render_listLineasServicio();
         calculateTotal();

@@ -23,7 +23,7 @@ DROP TABLE IF EXISTS `actividad_comercial`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `actividad_comercial` (
-  `id_actividad_comercial` int NOT NULL,
+  `id_actividad_comercial` varchar(10) NOT NULL,
   `nombre` varchar(70) DEFAULT NULL,
   PRIMARY KEY (`id_actividad_comercial`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -35,7 +35,7 @@ CREATE TABLE `actividad_comercial` (
 
 LOCK TABLES `actividad_comercial` WRITE;
 /*!40000 ALTER TABLE `actividad_comercial` DISABLE KEYS */;
-INSERT INTO `actividad_comercial` VALUES (1234,'Venta');
+INSERT INTO `actividad_comercial` VALUES ('1234','Venta');
 /*!40000 ALTER TABLE `actividad_comercial` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -90,7 +90,7 @@ CREATE TABLE `cliente_proveedor` (
 
 LOCK TABLES `cliente_proveedor` WRITE;
 /*!40000 ALTER TABLE `cliente_proveedor` DISABLE KEYS */;
-INSERT INTO `cliente_proveedor` VALUES ('86952','2345');
+INSERT INTO `cliente_proveedor` VALUES ('666','2345');
 /*!40000 ALTER TABLE `cliente_proveedor` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -146,7 +146,7 @@ CREATE TABLE `factura` (
 
 LOCK TABLES `factura` WRITE;
 /*!40000 ALTER TABLE `factura` DISABLE KEYS */;
-INSERT INTO `factura` VALUES ('0000000002',1,'2024-05-26 00:00:00','Tarjeta',5000,'86952','2345');
+INSERT INTO `factura` VALUES ('0000000001',1,'2024-05-27 00:00:00','Tarjeta',8050,'666','2345');
 /*!40000 ALTER TABLE `factura` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -170,7 +170,7 @@ CREATE TABLE `linea_servicio` (
   KEY `fk_id_producto_proveedor` (`id_producto_proveedor`),
   CONSTRAINT `fk_id_factura` FOREIGN KEY (`id_factura`) REFERENCES `factura` (`id_factura`),
   CONSTRAINT `fk_id_producto_proveedor` FOREIGN KEY (`id_producto_proveedor`) REFERENCES `producto_proveedor` (`id_producto_proveedor`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -179,7 +179,7 @@ CREATE TABLE `linea_servicio` (
 
 LOCK TABLES `linea_servicio` WRITE;
 /*!40000 ALTER TABLE `linea_servicio` DISABLE KEYS */;
-INSERT INTO `linea_servicio` VALUES (2,1,5,0,5000,46362,'0000000002');
+INSERT INTO `linea_servicio` VALUES (1,1,7,1.05,8050,1,'0000000001');
 /*!40000 ALTER TABLE `linea_servicio` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -204,7 +204,7 @@ CREATE TABLE `producto_cabys` (
 
 LOCK TABLES `producto_cabys` WRITE;
 /*!40000 ALTER TABLE `producto_cabys` DISABLE KEYS */;
-INSERT INTO `producto_cabys` VALUES ('156','Macarrones',NULL);
+INSERT INTO `producto_cabys` VALUES ('156','Macarrones',0.15);
 /*!40000 ALTER TABLE `producto_cabys` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -238,7 +238,7 @@ CREATE TABLE `producto_proveedor` (
 
 LOCK TABLES `producto_proveedor` WRITE;
 /*!40000 ALTER TABLE `producto_proveedor` DISABLE KEYS */;
-INSERT INTO `producto_proveedor` VALUES (46362,'Macarrones Sabor',1000,'86952','1','156');
+INSERT INTO `producto_proveedor` VALUES (1,'Macarrones Sabor',1000,'666','1','156');
 /*!40000 ALTER TABLE `producto_proveedor` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -252,7 +252,7 @@ DROP TABLE IF EXISTS `proveedor`;
 CREATE TABLE `proveedor` (
   `id_proveedor` varchar(20) NOT NULL,
   `nombre` varchar(45) NOT NULL,
-  `tipo_identificacion` varchar(20) NOT NULL,
+  `tipo_identificacion` varchar(20) DEFAULT NULL,
   `nombre_comercial` varchar(45) DEFAULT NULL,
   `ubicacion` varchar(400) DEFAULT NULL,
   `telefono` int DEFAULT NULL,
@@ -262,9 +262,7 @@ CREATE TABLE `proveedor` (
   `id_actividad_comercial` int DEFAULT NULL,
   PRIMARY KEY (`id_proveedor`),
   UNIQUE KEY `nombre_comercial_UNIQUE` (`nombre_comercial`),
-  UNIQUE KEY `correo_electronico_UNIQUE` (`correo_electronico`),
-  KEY `fk_id_actividad_comercial` (`id_actividad_comercial`),
-  CONSTRAINT `fk_id_actividad_comercial` FOREIGN KEY (`id_actividad_comercial`) REFERENCES `actividad_comercial` (`id_actividad_comercial`)
+  UNIQUE KEY `correo_electronico_UNIQUE` (`correo_electronico`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -274,7 +272,7 @@ CREATE TABLE `proveedor` (
 
 LOCK TABLES `proveedor` WRITE;
 /*!40000 ALTER TABLE `proveedor` DISABLE KEYS */;
-INSERT INTO `proveedor` VALUES ('86952','Verrati Salazar','nacional','Columbia','San Jose',8884832,'verratiSalazar@gmail.com','123','A',1234);
+INSERT INTO `proveedor` VALUES ('666','david','Persona Fisica','David Service','San Jose',888954,'davidj@gmail','{bcrypt}$2a$10$3adMZT6.NR.RLhMq5tJmBO51onSG0R0Rtn4ERUWY4J5/blFxfggSe','A',0);
 /*!40000 ALTER TABLE `proveedor` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -298,6 +296,7 @@ CREATE TABLE `proveedor_stub` (
 
 LOCK TABLES `proveedor_stub` WRITE;
 /*!40000 ALTER TABLE `proveedor_stub` DISABLE KEYS */;
+INSERT INTO `proveedor_stub` VALUES ('666','6');
 /*!40000 ALTER TABLE `proveedor_stub` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -334,4 +333,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-05-26 18:16:30
+-- Dump completed on 2024-05-27 20:47:38
