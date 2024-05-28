@@ -26,9 +26,10 @@ public class LineaServicioImplement implements ILineaServicioService {
     @Override
     public void saveAll(List<LineaServicioDto> lineasServicioDto){
         List<LineaServicioEntity> lineasServicio = new ArrayList<>();
+        int count = (int) (lineaServicioDao.count());
         for (LineaServicioDto lineaServicioDto : lineasServicioDto) {
             LineaServicioEntity lineaServicio = LineaServicioEntity.builder()
-                    .id((int) (lineaServicioDao.count() + 1))
+                    .id(count+1)
                     .idLinea(lineaServicioDto.getIdLinea())
                     .cantidad(lineaServicioDto.getCantidad())
                     .subtotal(lineaServicioDto.getSubtotal())
@@ -38,7 +39,9 @@ public class LineaServicioImplement implements ILineaServicioService {
                     .impuesto(lineaServicioDto.getImpuesto())
                     .build();
             lineasServicio.add(lineaServicio);
+            count++;
         }
+        System.out.println(lineasServicio);
         lineaServicioDao.saveAll(lineasServicio);
     }
 
