@@ -198,7 +198,7 @@ async function generateXML(item){
 
 async function generatePDF(item){
     await searchClient(item);
-    //await searchSupplier(item);
+    await searchSupplier(item);
     await searchListProductos(item);
 
     try {
@@ -363,25 +363,18 @@ async function searchListProductos(item){
 }
 
 async function searchSupplier(item){
-    const request = new Request(backend + `/proveedor/${item.idProveedor}`, {method: 'GET', headers: {}});
-    const response = await fetch(request);
-    if (!response.ok) {
-        errorMessage(response.status);
-        return;
-    }
-    const responseData = await response.json();
-    if (responseData.object) {
-        const proveedor = responseData.object;
-       // stateFacturas.proveedor.id = proveedor.id; /
-       // stateFacturas.proveedor.nombre = proveedor.nombre;
+    let request = new Request(backend+`/${loginstate.user.id}`,
+        {method: 'GET', headers: {}});
+        const response = await fetch(request);
+        if (!response.ok) {errorMessage(response.status);return;}
+        const proveedor = await response.json();
+        stateFacturas.proveedor.id = proveedor.id;
+        stateFacturas.proveedor.nombre = proveedor.nombre;
         stateFacturas.proveedor.telefono = proveedor.telefono;
         stateFacturas.proveedor.tipoId = proveedor.tipoId;
         stateFacturas.proveedor.nomComercial = proveedor.nomComercial;
         stateFacturas.proveedor.correo = proveedor.correo;
         stateFacturas.proveedor.ubicacion = proveedor.ubicacion;
-    } else {
-        errorMessage("Respuesta inválida del servidor");
-    }
 }
 
 
