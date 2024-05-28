@@ -166,6 +166,10 @@ async function generateXML(item){
         impuesto.textContent = stateFacturas.producto.impuesto;
         linServicio.appendChild(impuesto);
 
+        var precioTotal = doc.createElement("precioTotal");
+        precioTotal.textContent = stateFacturas.producto.precio*linea.cantidad;
+        linServicio.appendChild(precioTotal);
+
         var impuestoTotal = doc.createElement("ImpuestoTotal");
         impuestoTotal.textContent = linea.impuesto;
         linServicio.appendChild(impuestoTotal);
@@ -294,7 +298,7 @@ async function generatePDF(item){
                 lineaServicio.idLinea || "",
                 stateFacturas.producto.nombre +' ('+stateFacturas.producto.idUniMedida +')'  || "",
                 lineaServicio.codProducto || "",
-                stateFacturas.producto.precio?.toString() || "",
+                (stateFacturas.producto.precio*lineaServicio.cantidad)?.toString() || "",
                 lineaServicio.impuesto?.toString() || "",
                 lineaServicio.cantidad?.toString() || "",
                 lineaServicio.subtotal?.toString() || ""
