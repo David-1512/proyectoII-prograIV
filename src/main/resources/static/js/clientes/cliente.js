@@ -133,6 +133,7 @@ function clear(event){
 }
 
 function guardar(event){
+    if (!validarFormulario()) return;
     event.preventDefault();
     let clienteProveedorState = {
         id: document.getElementById("identificacion").value,
@@ -145,7 +146,22 @@ function guardar(event){
         {method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(clienteProveedorState)});
     (async ()=>{
         const response = await fetch(request);
-        if (!response.ok) {errorMessage(response.status);}
+        if (!response.ok) {
+            errorMessage(response.status);
+        }
+        else{
+            guardarRelacion();
+        }
+    })();
+}
+function guardarRelacion(){
+    let request = new Request(backend+`/registrarRelacion/${loginstate.user.id}`+`/`+`${document.getElementById("identificacion").value}`,
+        {method: 'POST', headers: { 'Content-Type': 'application/json' }});
+    (async ()=>{
+        const response = await fetch(request);
+        if (!response.ok) {
+            errorMessage(response.status);
+        }
         fetchAndListClientesProv();
     })();
 }
@@ -210,6 +226,36 @@ function eliminarClienteProv(id){
     })();
 }
 
+function validarFormulario(){
+    let campos = ["identificacion", "nombre", "correo", "telefono"];
+    let todosCompletos = true;
+    for (let i = 0; i < campos.length; i++) {
+        let campo = document.getElementById(campos[i]);
+        let label = document.querySelector(`label[for=${campos[i]}]`);
+        if (!campo.value || (campos[i] === "correo" && !validateEmail(campo.value)) || (campo.type === "number" && campo.value <= 0)) {
+            campo.style.borderColor = "red";
+            campo.style.borderWidth = "2px";
+            label.style.color = "red";
+            label.style.fontWeight = "bold";
+            todosCompletos = false;
+        } else {
+            campo.style.borderColor = "";
+            campo.style.borderWidth = "";
 
+            label.style.color = "";
+            label.style.fontWeight = "";
+        }
+    }
+    if (!todosCompletos) {
+        alert("Por favor complete todos los campos correctamente.");
+        return false;
+    }
+    return true;
+}
+
+function validateEmail(email) {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+}
 
 
