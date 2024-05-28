@@ -3,7 +3,7 @@ var stateFacturas ={
     id : "",
     cliente:{id:"", nombre:"",correo:"", telefono:"",tipoId:""},
     proveedor:{id:"",nombre:"",correo:"",telefono:"",ubicacion:"",nomComercial:"",tipoId: ""},
-    producto:{idUniMedida: "", idProducto: "", precio: 0.0, nombre: ""},
+    producto:{idUniMedida: "", idProducto: "", precio: 0.0, nombre: "",impuesto:""},
     listLineas:new Array()
 }
 
@@ -162,6 +162,14 @@ async function generateXML(item){
         precio.textContent = stateFacturas.producto.precio;
         linServicio.appendChild(precio);
 
+        var impuesto = doc.createElement("ImpuestoUnitario");
+        impuesto.textContent = stateFacturas.producto.impuesto;
+        linServicio.appendChild(impuesto);
+
+        var impuestoTotal = doc.createElement("ImpuestoTotal");
+        impuestoTotal.textContent = linea.impuesto;
+        linServicio.appendChild(impuestoTotal);
+
         var cantidad = doc.createElement("Cantidad");
         cantidad.textContent = linea.cantidad;
         linServicio.appendChild(cantidad);
@@ -250,7 +258,7 @@ async function generatePDF(item){
         page.drawText("PRODUCTOS", { x: 240, y, size: 12 });
         y -= 30;
 
-        const tableHeaders = ['NumLinea', 'Detalle', 'CodProducto', 'UniMedida', 'Precio', 'Cantidad', 'Subtotal'];
+        const tableHeaders = ['NumLinea', 'Detalle', 'CodProducto', 'Precio', 'Impuesto', 'Cantidad', 'Subtotal'];
         const tableWidth = page.getWidth() - 100;
         const cellWidth = tableWidth / tableHeaders.length;
 
@@ -284,10 +292,10 @@ async function generatePDF(item){
             await searchProducto(lineaServicio.codProducto);
             const row = [
                 lineaServicio.idLinea || "",
-                stateFacturas.producto.nombre || "",
+                stateFacturas.producto.nombre +' ('+stateFacturas.producto.idUniMedida +')'  || "",
                 lineaServicio.codProducto || "",
-                stateFacturas.producto.idUniMedida || "",
                 stateFacturas.producto.precio?.toString() || "",
+                lineaServicio.impuesto?.toString() || "",
                 lineaServicio.cantidad?.toString() || "",
                 lineaServicio.subtotal?.toString() || ""
             ];
@@ -332,7 +340,8 @@ async function searchProducto(cod){
         stateFacturas.producto.idProducto = producto.idProducto;
         stateFacturas.producto.nombre = producto.descripcion;
         stateFacturas.producto.precio = producto.precio;
-        stateFacturas.producto.idUniMedida = producto.idUnidadMedida;
+        stateFacturas.producto.idUniMedida = producto.unidadMedida.id;
+        stateFacturas.producto.impuesto = producto.productoCabys.impuestoProducto;
     } else {
         errorMessage("Respuesta inválida del servidor");
     }

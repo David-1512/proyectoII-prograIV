@@ -82,7 +82,7 @@ function addProduct(){
         nomProducto: statefactura.producto.nombre +' ('+statefactura.producto.unidadMedida+')',
         precioProducto: statefactura.producto.precio,
         cantidad: document.getElementById("cantidad").value,
-        impuesto: calculateImpuesto(statefactura.producto.impuesto,document.getElementById("cantidad").value),
+        impuesto:  calculateImpuesto(statefactura.producto.impuesto,document.getElementById("cantidad").value),
         subtotal: calculateSubtotal(statefactura.producto.precio, document.getElementById("cantidad").value,
             calculateImpuesto(statefactura.producto.impuesto,document.getElementById("cantidad").value))
     };
@@ -150,6 +150,7 @@ function decreaseQuantity(item){
     item.cantidad = parseInt(item.cantidad, 10);
     if(item.cantidad !== 1){
         item.cantidad -= 1;
+        item.impuesto = calculateImpuesto(item.impuesto,item.cantidad)
         item.subtotal = calculateSubtotal(item.precioProducto,item.cantidad);
         localStorage.setItem('listLineasServicio', JSON.stringify(statefactura.lineasServicio));
         render_listLineasServicio();
@@ -163,6 +164,7 @@ function decreaseQuantity(item){
 function increaseQuantity(item){
         item.cantidad = parseInt(item.cantidad, 10);
         item.cantidad += 1;
+        item.impuesto = calculateImpuesto(item.impuesto,item.cantidad)
         item.subtotal = calculateSubtotal(item.precioProducto,item.cantidad);
     localStorage.setItem('listLineasServicio', JSON.stringify(statefactura.lineasServicio));
         render_listLineasServicio();
@@ -233,7 +235,7 @@ function prepareLineService(){
             id: "",
             idLinea: linea.cod,
             cantidad: linea.cantidad,
-            impuesto: 0,
+            impuesto: linea.impuesto,
             subtotal: linea.subtotal,
             codProducto: linea.codProducto,
             numFactura: ""
