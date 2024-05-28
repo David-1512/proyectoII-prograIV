@@ -113,7 +113,7 @@ async function render_menu() {
             document.location = "/views/inicio/viewBienvenida.html";
         });
         document.querySelector("#menu #clientes").addEventListener('click', e => {
-            //document.location = "/views/proveedores/viewClientes.html";
+            document.location = "/views/clientes/viewClientes.html";
         });
         document.querySelector("#menu #facturacion").addEventListener('click', e => {
             document.location = "/views/facturacion/viewFacturacion.html";

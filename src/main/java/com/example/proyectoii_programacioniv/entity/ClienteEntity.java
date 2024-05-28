@@ -1,5 +1,6 @@
 package com.example.proyectoii_programacioniv.entity;
 
+import com.example.proyectoii_programacioniv.dto.ClienteDto;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -31,4 +32,21 @@ public class ClienteEntity implements Serializable {
 
     @Column(name = "tipo_identificacion")
     private String tipoId;
+
+    public ClienteEntity(ClienteEntity clienteEntity) {
+        this.id = clienteEntity.getId();
+        this.nombre = clienteEntity.getNombre();
+        this.correo = clienteEntity.getCorreo();
+        this.telefono = clienteEntity.getTelefono();
+        this.tipoId = clienteEntity.getTipoId();
+    }
+
+    public ClienteEntity(ClienteDto clienteDto) {
+        this.id = clienteDto.getId();
+        this.nombre = clienteDto.getNombre();
+        this.correo = clienteDto.getCorreo();
+        this.telefono = clienteDto.getTelefono();
+        this.tipoId = clienteDto.getTipoId();
+    }
+
 }

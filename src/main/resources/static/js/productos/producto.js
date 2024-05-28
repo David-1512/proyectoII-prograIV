@@ -105,7 +105,7 @@ function productos(event){
                                 <input type="number" class="form-control" id="precio" name="precio" min="0">
                             </div>
                             <div class="form-group col-md-12">
-                                <<input type="hidden" id="codigoReal" value = "0">
+                                <input type="hidden" id="codigoReal" value = "0">
                                 <label for="unidadMedidaSelect">Unidad de medida:</label>
                                 <select class="form-control" id="unidadMedidaSelect" name="unidadMedida"></select>
                             </div>
@@ -246,7 +246,7 @@ function render_list_itemProductosProv(listado,productoProveedorState){
         <td>${productoProveedorState.descripcion}</td>
         <td>${productoProveedorState.unidadMedida.id}</td>
         <td>${productoProveedorState.precio}</td>
-        <td>${productoProveedorState.productoCabys.impuestoProducto}</td>
+        <td>${productoProveedorState.productoCabys.impuestoProducto*100 + "%"}</td>
         <td id="editar"><img src="/images/editar.png" width="20" height="20"></td>`;
     tr.querySelector("#editar").addEventListener("click",()=>{editarProductoProv(productoProveedorState.cod);});
     tr.querySelector("#eliminar").addEventListener("click",()=>{eliminarProductoProv(productoProveedorState.cod);});
