@@ -71,7 +71,7 @@ async function render_list_itemFacturas(listado,item){
 
 async function generateXML(item){
        await searchClient(item);
-     //  await searchSupplier(item);
+       //await searchSupplier(item);
        await searchListProductos(item);
 
         var doc = document.implementation.createDocument(null, null, null);
@@ -198,7 +198,7 @@ async function generateXML(item){
 
 async function generatePDF(item){
     await searchClient(item);
-   // await searchSupplier(item);
+    //await searchSupplier(item);
     await searchListProductos(item);
 
     try {
